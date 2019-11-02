@@ -7,26 +7,26 @@
 
     <fragment
         android:id="@+id/damageFragment"
-        android:name="com.bramgoedvriend.glaswerk.ui.damage.damageFragment"
+        android:name="com.bramgoedvriend.glaswerk.damage.damageFragment"
         android:label="fragment_damage"
         tools:layout="@layout/fragment_damage" />
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.bramgoedvriend.glaswerk.ui.orders.ordersFragment"
+        android:name="com.bramgoedvriend.glaswerk.orders.ordersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.bramgoedvriend.glaswerk.ui.stock.stockFragment"
+        android:name="com.bramgoedvriend.glaswerk.stock.stockFragment"
         android:label="fragment_stock"
         tools:layout="@layout/fragment_stock" />
     <fragment
         android:id="@+id/studentsFragment"
-        android:name="com.bramgoedvriend.glaswerk.ui.students.studentsFragment"
+        android:name="com.bramgoedvriend.glaswerk.students.studentsFragment"
         android:label="fragment_students"
         tools:layout="@layout/fragment_students" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.bramgoedvriend.glaswerk.ui.settings.settingsFragment"
+        android:name="com.bramgoedvriend.glaswerk.settings.settingsFragment"
         android:label="settingsFragment" />
 </navigation>

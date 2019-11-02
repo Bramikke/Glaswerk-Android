@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.login
+package com.bramgoedvriend.glaswerk.login
 
 /**
  * Data validation state of the login form.

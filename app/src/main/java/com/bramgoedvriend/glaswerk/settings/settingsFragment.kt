@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.settings
+package com.bramgoedvriend.glaswerk.settings
 
 
 import android.content.Intent
@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentSettingsBinding
-import com.bramgoedvriend.glaswerk.ui.login.LoginActivity
+import com.bramgoedvriend.glaswerk.login.LoginActivity
 
 class settingsFragment : Fragment() {
 

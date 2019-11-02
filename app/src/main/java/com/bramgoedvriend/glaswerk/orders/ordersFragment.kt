@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.orders
+package com.bramgoedvriend.glaswerk.orders
 
 
 import android.os.Bundle

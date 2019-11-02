@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.login
+package com.bramgoedvriend.glaswerk.login
 
 import com.bramgoedvriend.glaswerk.domain.User
 

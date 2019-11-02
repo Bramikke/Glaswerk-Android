@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.students
+package com.bramgoedvriend.glaswerk.students
 
 
 import android.os.Bundle

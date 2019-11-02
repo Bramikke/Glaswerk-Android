@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.stock
+package com.bramgoedvriend.glaswerk.stock
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

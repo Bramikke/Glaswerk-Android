@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.damage
+package com.bramgoedvriend.glaswerk.damage
 
 
 import android.os.Bundle

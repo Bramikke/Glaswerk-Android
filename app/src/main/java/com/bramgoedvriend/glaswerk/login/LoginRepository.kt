@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.login
+package com.bramgoedvriend.glaswerk.login
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -42,7 +42,7 @@ class LoginRepository(val dataSource: LoginDataSource, context: Context){
         sharedPreferences.edit().apply {
             putBoolean("loggedIn", true)
             putInt("userId", user.id)
-            putString("displayName", user.name)
+            putString("displayName", user.username)
         }.apply()
     }
 }

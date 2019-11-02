@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.login
+package com.bramgoedvriend.glaswerk.login
 
 sealed class Result<out T : Any> {
 

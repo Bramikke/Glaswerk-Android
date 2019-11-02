@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.ui.login
+package com.bramgoedvriend.glaswerk.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: User) {
         val welcome = getString(R.string.welcome)
-        val name = model.name
+        val name = model.firstname + " " + model.lastName
         Toast.makeText(
             applicationContext,
             "$welcome $name",
