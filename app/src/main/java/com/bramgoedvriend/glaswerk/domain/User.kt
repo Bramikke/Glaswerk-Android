@@ -1,7 +1,7 @@
 package com.bramgoedvriend.glaswerk.domain
 
-class User(
-    val id: Int,
+data class User(
+    val userid: Int,
     val username: String,
     val firstname: String,
     val lastName: String,

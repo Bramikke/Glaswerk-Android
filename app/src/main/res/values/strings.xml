@@ -13,4 +13,8 @@
     <string name="profile_picture">Profielfoto</string>
     <string name="edit_password">Wachtwoord wijzigen</string>
     <string name="logout">Uitloggen</string>
+    <string name="amount">Aantal:</string>
+    <string name="order_amount">Bestellen:</string>
+    <string name="Room">Lokaal:</string>
+    <string name="Class">Klas:</string>
 </resources>

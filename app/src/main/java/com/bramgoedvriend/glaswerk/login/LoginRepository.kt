@@ -41,7 +41,7 @@ class LoginRepository(val dataSource: LoginDataSource, context: Context){
         this.user = user
         sharedPreferences.edit().apply {
             putBoolean("loggedIn", true)
-            putInt("userId", user.id)
+            putInt("userId", user.userid)
             putString("displayName", user.username)
         }.apply()
     }

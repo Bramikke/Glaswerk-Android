@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/damageFragment"
+        android:id="@+id/DamageFragment"
         android:icon="@drawable/ic_damage_black_24dp"
         android:title="@string/title_damage" />
 
     <item
-        android:id="@+id/ordersFragment"
+        android:id="@+id/OrdersFragment"
         android:icon="@drawable/ic_orders_black_24dp"
         android:title="@string/title_orders" />
 

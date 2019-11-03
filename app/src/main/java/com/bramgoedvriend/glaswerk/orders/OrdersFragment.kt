@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentOrdersBinding
 
-class ordersFragment : Fragment() {
+class OrdersFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +23,19 @@ class ordersFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentOrdersBinding>(
             inflater, R.layout.fragment_orders, container, false)
         (activity as MainActivity).setActionBarTitle(getString(R.string.title_orders))
+
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = OrderViewModelFactory(application)
+        val orderViewModel = ViewModelProviders.of(this, viewModelFactory).get(OrderViewModel::class.java)
+
+        val adapter = OrderAdapter()
+        binding.itemList.adapter = adapter
+
+        orderViewModel.items.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         return binding.root
     }

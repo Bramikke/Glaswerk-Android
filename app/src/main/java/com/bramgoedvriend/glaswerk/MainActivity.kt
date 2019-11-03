@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var items =  RetrofitClient.instance.getItems("2")
-        items.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{item ->  for(i in item) Log.i("itemsGet", i.naam + i.aantal)}
-
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -35,18 +30,22 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.damageFragment, R.id.ordersFragment, R.id.stockFragment, R.id.studentsFragment, R.id.settingsFragment
+                R.id.DamageFragment,
+                R.id.OrdersFragment,
+                R.id.stockFragment,
+                R.id.studentsFragment,
+                R.id.settingsFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
-    fun setActionBarTitle (title:String){
-        supportActionBar?.title= title
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
     }
 
-    fun logout () {
+    fun logout() {
         LoginRepository(LoginDataSource(), this).logout()
     }
 

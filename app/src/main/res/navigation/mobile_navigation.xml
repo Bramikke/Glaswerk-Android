@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/damageFragment">
+    app:startDestination="@id/DamageFragment">
 
     <fragment
-        android:id="@+id/damageFragment"
-        android:name="com.bramgoedvriend.glaswerk.damage.damageFragment"
+        android:id="@+id/DamageFragment"
+        android:name="com.bramgoedvriend.glaswerk.damage.DamageFragment"
         android:label="fragment_damage"
         tools:layout="@layout/fragment_damage" />
     <fragment
-        android:id="@+id/ordersFragment"
-        android:name="com.bramgoedvriend.glaswerk.orders.ordersFragment"
+        android:id="@+id/OrdersFragment"
+        android:name="com.bramgoedvriend.glaswerk.orders.OrdersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
