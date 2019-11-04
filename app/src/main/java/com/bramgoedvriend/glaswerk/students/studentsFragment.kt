@@ -21,11 +21,13 @@ class studentsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentStudentsBinding>(
-            inflater, R.layout.fragment_students, container, false)
+            inflater, R.layout.fragment_students, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = StudentViewModelFactory(application)
-        val studentViewModel = ViewModelProviders.of(this, viewModelFactory).get(StudentViewModel::class.java)
+        val studentViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(StudentViewModel::class.java)
 
         val adapter = StudentAdapter()
         binding.studentList.adapter = adapter

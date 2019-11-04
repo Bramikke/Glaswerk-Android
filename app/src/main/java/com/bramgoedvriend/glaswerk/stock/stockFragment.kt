@@ -19,11 +19,13 @@ class stockFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentStockBinding>(
-            inflater, R.layout.fragment_stock, container, false)
+            inflater, R.layout.fragment_stock, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = StockViewModelFactory(application)
-        val stockViewModel = ViewModelProviders.of(this, viewModelFactory).get(StockViewModel::class.java)
+        val stockViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(StockViewModel::class.java)
         val adapter = StockAdapter()
         binding.itemList.adapter = adapter
 

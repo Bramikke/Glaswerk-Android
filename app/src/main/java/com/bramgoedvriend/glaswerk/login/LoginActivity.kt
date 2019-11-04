@@ -24,15 +24,15 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var username: EditText
     private lateinit var password: EditText
-    private lateinit var login:Button
-    private lateinit var loading:ProgressBar
+    private lateinit var login: Button
+    private lateinit var loading: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         loginRepository = LoginRepository(LoginDataSource(), this)
 
-        if(loginRepository.isLoggedIn()){
+        if (loginRepository.isLoggedIn()) {
             goToMainActivity()
             finish()
         }
@@ -90,16 +90,16 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 
-    private fun login(){
+    private fun login() {
         loading.visibility = View.VISIBLE
         val loginResult = loginRepository.login(username.text.toString(), password.text.toString())
 
         loading.visibility = View.GONE
-        if(loginResult is Result.Error){
+        if (loginResult is Result.Error) {
             showLoginFailed(loginResult.exception.message.toString())
         }
 
-        if(loginResult is Result.Success) {
+        if (loginResult is Result.Success) {
             goToMainActivity()
             updateUiWithUser(loginResult.data)
             finish()

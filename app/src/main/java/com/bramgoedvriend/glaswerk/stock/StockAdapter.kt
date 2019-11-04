@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
 import com.bramgoedvriend.glaswerk.domain.Item
 
-class StockAdapter: ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
+class StockAdapter : ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -17,7 +17,8 @@ class StockAdapter: ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor (val binding: ListItemBinding):RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: Item
         ) {
@@ -27,7 +28,8 @@ class StockAdapter: ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ViewHolder(binding)
             }
         }

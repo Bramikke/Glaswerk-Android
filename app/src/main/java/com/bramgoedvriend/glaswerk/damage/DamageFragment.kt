@@ -29,17 +29,19 @@ class DamageFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = DamageViewModelFactory(application)
-        val damageViewModel = ViewModelProviders.of(this, viewModelFactory).get(DamageViewModel::class.java)
+        val damageViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DamageViewModel::class.java)
 
-        val adapter = DamageAdapter(ItemListener {
-            item -> damageViewModel.onItemClicked(item)
+        val adapter = DamageAdapter(ItemListener { item ->
+            damageViewModel.onItemClicked(item)
         })
         binding.itemList.adapter = adapter
 
         damageViewModel.navigateToLeerlingen.observe(this, Observer { item ->
             item?.let {
-                findNavController().navigate(DamageFragmentDirections
-                    .actionDamageFragmentToDamageStudentFragment(it.itemid, it.naam)
+                findNavController().navigate(
+                    DamageFragmentDirections
+                        .actionDamageFragmentToDamageStudentFragment(it.itemid, it.naam)
                 )
                 damageViewModel.onLeerlingenNavigated()
             }

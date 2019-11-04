@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/damageStudentFragment"
         android:name="com.bramgoedvriend.glaswerk.damage.damage_student.DamageStudentFragment"
-        android:label="@string/title_select_student" >
+        android:label="@string/title_select_student">
         <argument
             android:name="itemId"
             app:argType="integer" />

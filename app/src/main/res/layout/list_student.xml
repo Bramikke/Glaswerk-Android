@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="student"
             type="com.bramgoedvriend.glaswerk.domain.Student" />
@@ -36,9 +37,9 @@
                     android:layout_marginTop="16dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    app:studentNameString="@{student}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:studentNameString="@{student}"
                     tools:text="Bob Bert" />
 
                 <TextView
@@ -63,8 +64,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/student_name"
-                    tools:text="20"
-                    app:studentNumberBrokenString="@{student}"/>
+                    app:studentNumberBrokenString="@{student}"
+                    tools:text="20" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

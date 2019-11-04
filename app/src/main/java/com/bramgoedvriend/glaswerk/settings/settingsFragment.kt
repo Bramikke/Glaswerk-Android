@@ -21,13 +21,15 @@ class settingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentSettingsBinding>(
-            inflater, R.layout.fragment_settings, container, false)
+            inflater, R.layout.fragment_settings, container, false
+        )
 
         val username = binding.username
-        val sp = (activity as MainActivity).getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
-        username.text = sp.getString("displayName","")
+        val sp =
+            (activity as MainActivity).getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
+        username.text = sp.getString("displayName", "")
 
-        binding.logout.setOnClickListener{_:View ->
+        binding.logout.setOnClickListener { _: View ->
             (activity as MainActivity).logout()
 
             val loginActivity = Intent(activity, LoginActivity::class.java)

@@ -19,7 +19,8 @@ class OrderAdapter : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallbac
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor (val binding: ListItemOrdersBinding):RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemOrdersBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Item) {
             binding.item = item
             binding.executePendingBindings()
@@ -27,7 +28,11 @@ class OrderAdapter : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallbac
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val binding = ListItemOrdersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = ListItemOrdersBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 return ViewHolder(binding)
             }
         }

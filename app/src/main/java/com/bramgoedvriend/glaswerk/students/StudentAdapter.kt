@@ -18,7 +18,8 @@ class StudentAdapter : ListAdapter<Student, StudentAdapter.ViewHolder>(StudentDi
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor (val binding: ListStudentBinding):RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListStudentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(student: Student) {
             binding.student = student
             binding.executePendingBindings()
@@ -26,7 +27,8 @@ class StudentAdapter : ListAdapter<Student, StudentAdapter.ViewHolder>(StudentDi
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val binding = ListStudentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ListStudentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ViewHolder(binding)
             }
         }

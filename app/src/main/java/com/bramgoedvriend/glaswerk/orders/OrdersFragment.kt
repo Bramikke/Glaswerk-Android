@@ -20,11 +20,13 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentOrdersBinding>(
-            inflater, R.layout.fragment_orders, container, false)
+            inflater, R.layout.fragment_orders, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = OrderViewModelFactory(application)
-        val orderViewModel = ViewModelProviders.of(this, viewModelFactory).get(OrderViewModel::class.java)
+        val orderViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(OrderViewModel::class.java)
 
         val adapter = OrderAdapter()
         binding.itemList.adapter = adapter

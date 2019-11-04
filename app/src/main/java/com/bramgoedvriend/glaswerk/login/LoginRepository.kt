@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import com.bramgoedvriend.glaswerk.domain.User
 
-class LoginRepository(val dataSource: LoginDataSource, context: Context){
+class LoginRepository(val dataSource: LoginDataSource, context: Context) {
 
     var user: User? = null
         private set
@@ -13,7 +13,7 @@ class LoginRepository(val dataSource: LoginDataSource, context: Context){
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
 
-    fun isLoggedIn() : Boolean {
+    fun isLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("loggedIn", false)
     }
 

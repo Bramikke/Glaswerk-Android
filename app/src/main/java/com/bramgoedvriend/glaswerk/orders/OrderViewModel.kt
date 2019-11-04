@@ -28,6 +28,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         var result = RetrofitClient.instance.getItemOrders()
         result.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { res ->  _items.value = res }
+            .subscribe { res -> _items.value = res }
     }
 }

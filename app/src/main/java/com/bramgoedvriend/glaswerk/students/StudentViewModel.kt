@@ -18,6 +18,6 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
         var result = RetrofitClient.instance.getStudentsByClass(1)
         result.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { res ->  _students.value = res }
+            .subscribe { res -> _students.value = res }
     }
 }
