@@ -5,6 +5,7 @@
     <string name="title_stock">Voorraad</string>
     <string name="title_students">Leerlingen</string>
     <string name="title_settings">Instellingen</string>
+    <string name="title_select_student">Selecteer leerling</string>
     <string name="welcome">Welkom</string>
     <string name="invalid_username">Ongeldige gebruikersnaam</string>
     <string name="email">Email</string>
@@ -17,4 +18,10 @@
     <string name="order_amount">Bestellen:</string>
     <string name="Room">Lokaal:</string>
     <string name="Class">Klas:</string>
+    <string name="NumberOfBroken">Aantal gebroken:</string>
+    <string name="loading">Laden...</string>
+    <string name="somethingWentWrong">Er is iets mis gegaan.</string>
+    <string name="errorDescription">error</string>
+    <string name="minAmount">Min:</string>
+    <string name="maxAmount">Max:</string>
 </resources>

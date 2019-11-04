@@ -19,10 +19,8 @@ class OrdersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentOrdersBinding>(
             inflater, R.layout.fragment_orders, container, false)
-        (activity as MainActivity).setActionBarTitle(getString(R.string.title_orders))
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = OrderViewModelFactory(application)

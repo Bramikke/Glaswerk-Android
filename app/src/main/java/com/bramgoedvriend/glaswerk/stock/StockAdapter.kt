@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk.damage
+package com.bramgoedvriend.glaswerk.stock
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
 import com.bramgoedvriend.glaswerk.domain.Item
 
-class DamageAdapter(val clickListener:ItemListener) : ListAdapter<Item, DamageAdapter.ViewHolder>(DamageDiffCallback()) {
+class StockAdapter: ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,11 +19,9 @@ class DamageAdapter(val clickListener:ItemListener) : ListAdapter<Item, DamageAd
 
     class ViewHolder private constructor (val binding: ListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            item: Item,
-            clickListener: ItemListener
+            item: Item
         ) {
             binding.item = item
-            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -36,7 +34,7 @@ class DamageAdapter(val clickListener:ItemListener) : ListAdapter<Item, DamageAd
     }
 }
 
-class DamageDiffCallback : DiffUtil.ItemCallback<Item>() {
+class StockDiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.itemid == newItem.itemid
     }
@@ -44,8 +42,4 @@ class DamageDiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem == newItem
     }
-}
-
-class ItemListener(val clickListener: (item:Item) -> Unit) {
-    fun onClick(item:Item) = clickListener(item)
 }

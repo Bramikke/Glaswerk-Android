@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,60 +23,74 @@
                 android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/room"
+                    android:id="@+id/item_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtRoom"
+                        android:id="@+id/item_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Room"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/room_name"
-                        app:layout_constraintEnd_toStartOf="@+id/room_name"
-                        app:layout_constraintTop_toTopOf="@+id/room_name" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/class_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/room_name"
+                        android:id="@+id/txtClass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="1.012"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/Class"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/class_name"
+                        app:layout_constraintEnd_toStartOf="@+id/class_name"
+                        app:layout_constraintTop_toTopOf="@+id/class_name" />
+
+                    <TextView
+                        android:id="@+id/class_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="5B"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="1.012" />
+                        tools:text="5B" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_list"
+            android:id="@+id/student_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header"/>
-
-        <include
-            android:id="@+id/loading_overlay"
-            layout="@layout/loading_overlay"
-            android:visibility="gone" />
-
-        <include
-            android:id="@+id/error_overlay"
-            layout="@layout/error_overlay"
-            android:visibility="gone" />
+            app:layout_constraintTop_toBottomOf="@id/header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

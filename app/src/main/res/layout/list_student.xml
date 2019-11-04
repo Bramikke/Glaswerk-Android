@@ -5,11 +5,8 @@
 
     <data>
         <variable
-            name="item"
-            type="com.bramgoedvriend.glaswerk.domain.Item" />
-        <variable
-            name="clickListener"
-            type="com.bramgoedvriend.glaswerk.damage.ItemListener" />
+            name="student"
+            type="com.bramgoedvriend.glaswerk.domain.Student" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,10 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:onClick="@{() -> clickListener.onClick(item)}"
-            android:focusable="true"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,20 +29,31 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/item_name"
+                    android:id="@+id/student_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
+                    app:studentNameString="@{student}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Proefbuis"
-                    app:itemNameString="@{item}"/>
+                    tools:text="Bob Bert" />
 
                 <TextView
-                    android:id="@+id/item_aantal_bestellen"
+                    android:id="@+id/txtNumerBroken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/NumberOfBroken"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/student_number_broken"
+                    app:layout_constraintEnd_toStartOf="@+id/student_number_broken"
+                    app:layout_constraintTop_toTopOf="@+id/student_number_broken" />
+
+                <TextView
+                    android:id="@+id/student_number_broken"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -58,9 +62,9 @@
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item_name"
+                    app:layout_constraintTop_toBottomOf="@+id/student_name"
                     tools:text="20"
-                    app:itemAantalString="@{item}"/>
+                    app:studentNumberBrokenString="@{student}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,13 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentDamageBinding
+import com.bramgoedvriend.glaswerk.domain.ApiStatus
+
 
 class DamageFragment : Fragment() {
 
@@ -21,22 +23,46 @@ class DamageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentDamageBinding>(
             inflater, R.layout.fragment_damage, container, false
         )
-        (activity as MainActivity).setActionBarTitle(getString(R.string.title_damage))
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = DamageViewModelFactory(application)
-        val damageViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory).get(DamageViewModel::class.java)
+        val damageViewModel = ViewModelProviders.of(this, viewModelFactory).get(DamageViewModel::class.java)
 
         val adapter = DamageAdapter(ItemListener {
-            itemId -> Toast.makeText(context, "${itemId}", Toast.LENGTH_LONG).show()
+            item -> damageViewModel.onItemClicked(item)
         })
         binding.itemList.adapter = adapter
+
+        damageViewModel.navigateToLeerlingen.observe(this, Observer { item ->
+            item?.let {
+                findNavController().navigate(DamageFragmentDirections
+                    .actionDamageFragmentToDamageStudentFragment(it.itemid, it.naam)
+                )
+                damageViewModel.onLeerlingenNavigated()
+            }
+        })
+
+        damageViewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ApiStatus.LOADING -> {
+                        binding.itemList.visibility = View.INVISIBLE
+                        binding.loadingOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.ERROR -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.errorOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.DONE -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.itemList.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
 
         damageViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {

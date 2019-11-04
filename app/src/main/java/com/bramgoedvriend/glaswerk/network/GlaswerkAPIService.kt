@@ -2,6 +2,7 @@ package com.bramgoedvriend.glaswerk.network
 
 import com.bramgoedvriend.glaswerk.domain.Item
 import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.domain.Student
 import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
@@ -16,5 +17,8 @@ interface GlaswerkAPIService {
 
     @GET("itemOrders")
     fun getItemOrders(): Observable<List<Item>>
+
+    @GET("studentByClass")
+    fun getStudentsByClass(@Query("id") id: Int): Observable<List<Student>>
 
 }

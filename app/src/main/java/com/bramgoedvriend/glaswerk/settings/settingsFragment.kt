@@ -20,10 +20,8 @@ class settingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentSettingsBinding>(
             inflater, R.layout.fragment_settings, container, false)
-        (activity as MainActivity).setActionBarTitle(getString(R.string.title_settings))
 
         val username = binding.username
         val sp = (activity as MainActivity).getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)

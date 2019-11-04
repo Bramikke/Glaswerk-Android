@@ -26,7 +26,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/item_name"
@@ -42,34 +42,50 @@
                     tools:text="Proefbuis" />
 
                 <TextView
-                    android:id="@+id/txtAantal"
+                    android:id="@+id/txtAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/amount"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-                    app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtMinAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/minAmount"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
 
                 <TextView
                     android:id="@+id/txtAantalBestellen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/order_amount"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMaxAmount" />
 
                 <TextView
                     android:id="@+id/txtLokaal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/Room"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/item_name"
-                    app:layout_constraintTop_toBottomOf="@+id/item_name" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/item_lokaal_name"
@@ -77,15 +93,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:textSize="18sp"
+                    app:itemLokaalString="@{item}"
                     app:layout_constraintStart_toEndOf="@+id/txtLokaal"
                     app:layout_constraintTop_toTopOf="@+id/txtLokaal"
-                    tools:text="1.012"
-                    app:itemLokaalString="@{item}"/>
+                    tools:text="1.012" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
@@ -94,18 +110,42 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/item_aantal"
+                        android:id="@+id/item_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
-                        app:itemAantalOfTotalString="@{item}"
+                        app:itemAmountString="@{item}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="20 / 10" />
+                        tools:text="10" />
 
                     <TextView
-                        android:id="@+id/item_aantal_bestellen"
+                        android:id="@+id/item_min_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:itemMinString="@{item}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_amount"
+                        tools:text="15" />
+
+                    <TextView
+                        android:id="@+id/item_max_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:itemMaxString="@{item}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_min_amount"
+                        tools:text="30" />
+
+                    <TextView
+                        android:id="@+id/item_order_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -114,9 +154,20 @@
                         app:itemOrderString="@{item}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/item_aantal"
+                        app:layout_constraintTop_toBottomOf="@id/item_max_amount"
                         tools:text="2 x 20" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtMaxAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/maxAmount"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMinAmount" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
