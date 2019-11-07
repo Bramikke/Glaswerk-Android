@@ -8,6 +8,11 @@
         <variable
             name="student"
             type="com.bramgoedvriend.glaswerk.domain.Student" />
+
+
+        <variable
+            name="clickListener"
+            type="com.bramgoedvriend.glaswerk.damage.damage_student.StudentListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +23,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> clickListener.onClick(student)}"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,15 +38,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/student_name"
+                <ImageView
+                    android:id="@+id/user_picture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/userPicture"
+                    android:src="@drawable/ic_person_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/student_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="16dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/user_picture"
                     app:layout_constraintTop_toTopOf="parent"
                     app:studentNameString="@{student}"
                     tools:text="Bob Bert" />

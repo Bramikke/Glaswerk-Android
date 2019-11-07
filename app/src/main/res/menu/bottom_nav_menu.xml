@@ -12,12 +12,12 @@
         android:title="@string/title_orders" />
 
     <item
-        android:id="@+id/stockFragment"
+        android:id="@+id/StockFragment"
         android:icon="@drawable/ic_stock_black_24dp"
         android:title="@string/title_stock" />
 
     <item
-        android:id="@+id/studentsFragment"
+        android:id="@+id/StudentsFragment"
         android:icon="@drawable/ic_students_black_24dp"
         android:title="@string/title_students" />
 

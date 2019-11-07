@@ -1,7 +1,6 @@
 package com.bramgoedvriend.glaswerk
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,13 +8,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.bramgoedvriend.glaswerk.network.GlaswerkAPIService
 import com.bramgoedvriend.glaswerk.login.LoginDataSource
 import com.bramgoedvriend.glaswerk.login.LoginRepository
 
 class MainActivity : AppCompatActivity() {
-
-    internal lateinit var jsonAPI: GlaswerkAPIService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +28,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.DamageFragment,
                 R.id.OrdersFragment,
-                R.id.stockFragment,
-                R.id.studentsFragment,
+                R.id.StockFragment,
+                R.id.StudentsFragment,
                 R.id.settingsFragment
             )
         )
@@ -51,12 +47,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun setActionBarTitle(title: String) {
-        supportActionBar?.title = title
-    }
-
     fun logout() {
         LoginRepository(LoginDataSource(), this).logout()
     }
-
 }

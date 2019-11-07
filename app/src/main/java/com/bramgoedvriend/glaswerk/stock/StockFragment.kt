@@ -10,10 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
+import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
 import com.bramgoedvriend.glaswerk.databinding.FragmentStockBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
+import com.bramgoedvriend.glaswerk.domain.Lokaal
 
-class stockFragment : Fragment() {
+class StockFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +55,13 @@ class stockFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
+
+        binding.room.setOnClickListener {
+            val fragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.addToBackStack("LokaalDialog")
+            val dialogFragment = BottomDialogFragment(Lokaal::class.java)
+            dialogFragment.show(fragmentTransaction, "dialog")
+        }
 
         return binding.root
     }

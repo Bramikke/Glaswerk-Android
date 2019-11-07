@@ -11,10 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
+import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
 import com.bramgoedvriend.glaswerk.databinding.FragmentStudentsBinding
+import com.bramgoedvriend.glaswerk.domain.ApiStatus
+import com.bramgoedvriend.glaswerk.domain.Klas
 import com.bramgoedvriend.glaswerk.orders.*
 
-class studentsFragment : Fragment() {
+class StudentsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +35,37 @@ class studentsFragment : Fragment() {
         val adapter = StudentAdapter()
         binding.studentList.adapter = adapter
 
+        studentViewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ApiStatus.LOADING -> {
+                        binding.studentList.visibility = View.INVISIBLE
+                        binding.loadingOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.ERROR -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.errorOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.DONE -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.studentList.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+
         studentViewModel.students.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
+
+        binding.klas.setOnClickListener {
+            val fragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.addToBackStack("KlassDialog")
+            val dialogFragment = BottomDialogFragment(Klas::class.java)
+            dialogFragment.show(fragmentTransaction, "dialog")
+        }
 
         return binding.root
     }

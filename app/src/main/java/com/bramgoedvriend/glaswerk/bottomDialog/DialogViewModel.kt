@@ -1,28 +1,24 @@
-package com.bramgoedvriend.glaswerk.orders
+package com.bramgoedvriend.glaswerk.bottomDialog
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.network.GlaswerkAPIService
+import com.bramgoedvriend.glaswerk.domain.Lokaal
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
-class OrderViewModel(application: Application) : AndroidViewModel(application) {
+@Suppress("UNCHECKED_CAST")
+class DialogViewModel<T> (application: Application, private val type: Class<T>) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
 
-    private var _items = MutableLiveData<List<Item>>()
-    val items: LiveData<List<Item>>
+    private var _items = MutableLiveData<List<T>>()
+    val items: LiveData<List<T>>
         get() = _items
 
     init {
@@ -30,12 +26,20 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getItems() {
-        var result = RetrofitClient.instance.getItemOrders()
+        val result: Observable<List<T>>
+        if(type == Lokaal::class.java) {
+            result = RetrofitClient.instance.getRoom() as Observable<List<T>>
+        } else {
+            result = RetrofitClient.instance.getClass() as Observable<List<T>>
+        }
         result.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { _status.value = ApiStatus.LOADING }
             .doOnTerminate { _status.value = ApiStatus.DONE }
             .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe { res -> _items.value = res }
+            .subscribe {
+                    res -> _items.value = res
+            }
+
     }
 }

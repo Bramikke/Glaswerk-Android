@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentOrdersBinding
+import com.bramgoedvriend.glaswerk.domain.ApiStatus
 
 class OrdersFragment : Fragment() {
 
@@ -30,6 +30,25 @@ class OrdersFragment : Fragment() {
 
         val adapter = OrderAdapter()
         binding.itemList.adapter = adapter
+
+        orderViewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ApiStatus.LOADING -> {
+                        binding.itemList.visibility = View.INVISIBLE
+                        binding.loadingOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.ERROR -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.errorOverlay.visibility = View.VISIBLE
+                    }
+                    ApiStatus.DONE -> {
+                        binding.loadingOverlay.visibility = View.GONE
+                        binding.itemList.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
 
         orderViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {

@@ -3,6 +3,8 @@ package com.bramgoedvriend.glaswerk
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.domain.Klas
+import com.bramgoedvriend.glaswerk.domain.Lokaal
 import com.bramgoedvriend.glaswerk.domain.Student
 import org.w3c.dom.Text
 
@@ -66,6 +68,20 @@ fun TextView.setStudentNameString(student: Student?) {
 @BindingAdapter("studentNumberBrokenString")
 fun TextView.setStudentNumberBrokenString(student: Student?) {
     student?.let {
-        text = student.leerlingid.toString()
+        text = student.aantalGebroken.toString()
+    }
+}
+
+@BindingAdapter("roomNameString")
+fun TextView.setRoomNameString(room: Lokaal?) {
+    room?.let {
+        text = room.naam
+    }
+}
+
+@BindingAdapter("classNameString")
+fun TextView.setClassNameString(klas: Klas?) {
+    klas?.let {
+        text = klas.naam
     }
 }

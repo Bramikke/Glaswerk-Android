@@ -4,5 +4,6 @@ data class Student(
     val leerlingid: Int,
     val klasid: Int,
     val voornaam: String,
-    val achternaam: String
+    val achternaam: String,
+    val aantalGebroken: Int
 )

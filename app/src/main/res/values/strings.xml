@@ -24,4 +24,8 @@
     <string name="errorDescription">error</string>
     <string name="minAmount">Min:</string>
     <string name="maxAmount">Max:</string>
+    <string name="userPicture">gebruiker foto</string>
+    <string name="onPurpose">Opzettelijk</string>
+    <string name="notOnPurpose">Niet opzettelijk</string>
+    <string name="cancel">Annuleer</string>
 </resources>
