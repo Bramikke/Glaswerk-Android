@@ -63,7 +63,7 @@ class DamageStudentViewModel(application: Application, private val args: DamageS
     fun studentBroke(student: Student, onPurpose: Int) : String {
         var returnMessage = "";
         coroutineScope.launch {
-            //try {
+            try {
                 val studentItem = StudentItem(
                     student.leerlingid,
                     args.itemId,
@@ -77,9 +77,9 @@ class DamageStudentViewModel(application: Application, private val args: DamageS
                     aantal
                 )
                 RetrofitClient.instance.postReduceItemAsync(reduceItem).await()
-            /*} catch (t:Throwable) {
+            } catch (t:Throwable) {
                 returnMessage = "Error"
-            }*/
+            }
         }
         returnMessage = "${student.voornaam} heeft een ${args.itemName} ${if(onPurpose==0) "niet" else ""} opzettelijk gebroken."
         return returnMessage
