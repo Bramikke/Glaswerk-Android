@@ -1,13 +1,15 @@
 package com.bramgoedvriend.glaswerk.domain
 
+import com.squareup.moshi.Json
+
 data class Item(
-    val itemid: Int,
-    val lokaalid: Int,
-    val naam: String,
-    val aantal: Int,
-    val min_aantal: Int,
-    val max_aantal: Int,
-    val bestel_hoeveelheid: Int,
-    val lokaal_id: Int?,
-    val lokaal_naam: String?
+    @Json(name = "itemid") val id: Int,
+    @Json(name = "lokaal_id") val classId: Int,
+    @Json(name = "naam") val name: String,
+    @Json(name = "aantal") val amount: Int,
+    @Json(name = "min_aantal") val minAmount: Int,
+    @Json(name = "max_aantal") val maxAmount: Int,
+    @Json(name = "bestel_hoeveelheid") val orderAmount: Int,
+    @Json(name = "lokaalid") val roomId: Int?,
+    @Json(name = "lokaal_naam") val roomName: String?
 )

@@ -25,17 +25,23 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     val items: LiveData<List<Item>>
         get() = _items
 
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
         getItems()
     }
 
     private fun getItems() {
-        var result = RetrofitClient.instance.getItemOrders()
-        result.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _status.value = ApiStatus.LOADING }
-            .doOnTerminate { _status.value = ApiStatus.DONE }
-            .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe { res -> _items.value = res }
+        _status.value = ApiStatus.LOADING
+        coroutineScope.launch {
+            try {
+                val result = RetrofitClient.instance.getItemOrdersAsync().await()
+                _items.value = result
+                _status.value = ApiStatus.DONE
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.ERROR
+            }
+        }
     }
 }

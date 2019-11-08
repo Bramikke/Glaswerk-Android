@@ -10,6 +10,7 @@ import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 
 @Suppress("UNCHECKED_CAST")
 class DialogViewModel<T> (application: Application, private val type: Class<T>) : AndroidViewModel(application) {
@@ -21,25 +22,28 @@ class DialogViewModel<T> (application: Application, private val type: Class<T>) 
     val items: LiveData<List<T>>
         get() = _items
 
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
         getItems()
     }
 
     private fun getItems() {
-        val result: Observable<List<T>>
-        if(type == Lokaal::class.java) {
-            result = RetrofitClient.instance.getRoom() as Observable<List<T>>
-        } else {
-            result = RetrofitClient.instance.getClass() as Observable<List<T>>
-        }
-        result.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _status.value = ApiStatus.LOADING }
-            .doOnTerminate { _status.value = ApiStatus.DONE }
-            .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe {
-                    res -> _items.value = res
+        _status.value = ApiStatus.LOADING
+        coroutineScope.launch {
+            try {
+                val result: List<T>
+                if(type == Lokaal::class.java) {
+                    result = RetrofitClient.instance.getRoomAsync().await() as List<T>
+                } else {
+                    result = RetrofitClient.instance.getClassAsync().await() as List<T>
+                }
+                _items.value = result
+                _status.value = ApiStatus.DONE
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.ERROR
             }
-
+        }
     }
 }

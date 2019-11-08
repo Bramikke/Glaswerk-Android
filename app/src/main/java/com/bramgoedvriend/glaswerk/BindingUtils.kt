@@ -11,50 +11,50 @@ import org.w3c.dom.Text
 @BindingAdapter("itemNameString")
 fun TextView.setItemNameString(item: Item?) {
     item?.let {
-        text = item.naam
+        text = item.name
     }
 }
 
 @BindingAdapter("itemAantalString")
 fun TextView.setItemAantalString(item: Item?) {
     item?.let {
-        text = item.aantal.toString()
+        text = item.amount.toString()
     }
 }
 
 @BindingAdapter("itemAmountString")
 fun TextView.setItemAmountString(item: Item?) {
     item?.let {
-        text = item.aantal.toString()
+        text = item.amount.toString()
     }
 }
 
 @BindingAdapter("itemMinString")
 fun TextView.setItemMinString(item: Item?) {
     item?.let {
-        text = item.min_aantal.toString()
+        text = item.minAmount.toString()
     }
 }
 
 @BindingAdapter("itemMaxString")
 fun TextView.setItemMaxString(item: Item?) {
     item?.let {
-        text = item.max_aantal.toString()
+        text = item.maxAmount.toString()
     }
 }
 
 @BindingAdapter("itemOrderString")
 fun TextView.setItemOrderString(item: Item?) {
     item?.let {
-        val aantalBestellen = (item.max_aantal - item.aantal) / item.bestel_hoeveelheid
-        text = String.format("%d x %d", aantalBestellen, item.bestel_hoeveelheid)
+        val aantalBestellen = (item.maxAmount - item.amount) / item.orderAmount
+        text = String.format("%d x %d", aantalBestellen, item.orderAmount)
     }
 }
 
 @BindingAdapter("itemLokaalString")
 fun TextView.setItemLokaalString(item: Item?) {
     item?.let {
-        text = item.lokaal_naam
+        text = item.roomName
     }
 }
 

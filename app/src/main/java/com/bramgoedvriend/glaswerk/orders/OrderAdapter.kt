@@ -41,7 +41,7 @@ class OrderAdapter : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallbac
 
 class OrderDiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.itemid == newItem.itemid
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {

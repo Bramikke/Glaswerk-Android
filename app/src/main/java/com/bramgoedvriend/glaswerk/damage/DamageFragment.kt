@@ -40,7 +40,7 @@ class DamageFragment : Fragment() {
             item?.let {
                 findNavController().navigate(
                     DamageFragmentDirections
-                        .actionDamageFragmentToDamageStudentFragment(it.itemid, it.naam, it.aantal)
+                        .actionDamageFragmentToDamageStudentFragment(it.id, it.name, it.amount)
                 )
                 damageViewModel.onLeerlingenNavigated()
             }

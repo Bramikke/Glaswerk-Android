@@ -1,15 +1,23 @@
 package com.bramgoedvriend.glaswerk.damage.damage_student
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
 import com.bramgoedvriend.glaswerk.domain.Item
 import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.network.ReduceItem
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
+import com.bramgoedvriend.glaswerk.network.StudentItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class DamageStudentViewModel(application: Application, private val args: DamageStudentFragmentArgs) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
@@ -24,20 +32,24 @@ class DamageStudentViewModel(application: Application, private val args: DamageS
     val selectStudent
         get() = _selectStudent
 
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
         getItems()
     }
 
     private fun getItems() {
-
-        val result = RetrofitClient.instance.getStudentsByClassByItem(1, args.itemId) //TODO: get class of student
-        result.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _status.value = ApiStatus.LOADING }
-            .doOnTerminate { _status.value = ApiStatus.DONE }
-            .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe { res -> _students.value = res }
-
+        _status.value = ApiStatus.LOADING
+        coroutineScope.launch {
+            try {
+                val result = RetrofitClient.instance.getStudentsByClassByItemAsync(1, args.itemId).await() //TODO: get class of student
+                _students.value = result
+                _status.value = ApiStatus.DONE
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.ERROR
+            }
+        }
     }
 
     fun onStudentClicked(student: Student) {
@@ -49,23 +61,27 @@ class DamageStudentViewModel(application: Application, private val args: DamageS
     }
 
     fun studentBroke(student: Student, onPurpose: Int) : String {
-        var mapStudentItemBroken = HashMap<String, Any>()
-        mapStudentItemBroken["leerlingid"] = student.leerlingid
-        mapStudentItemBroken["itemid"] = args.itemId
-        mapStudentItemBroken["opzettelijk"] = onPurpose
-        val result1 = RetrofitClient.instance.postStudentItemBroken(mapStudentItemBroken)
-        result1.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+        var returnMessage = "";
+        coroutineScope.launch {
+            //try {
+                val studentItem = StudentItem(
+                    student.leerlingid,
+                    args.itemId,
+                    onPurpose
+                )
+                RetrofitClient.instance.postStudentItemBrokenAsync(studentItem).await()
 
-        var mapReduceItem = HashMap<String, Int>()
-        mapReduceItem["itemid"] = args.itemId
-        mapReduceItem["aantal"] = args.itemAmount - 1
-        val result2 = RetrofitClient.instance.postReduceItem(mapReduceItem)
-        result2.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-
-        return "${student.voornaam} heeft een ${args.itemName} ${if(onPurpose==0) "niet" else ""} opzettelijk gebroken."
+                val aantal = args.itemAmount - 1
+                val reduceItem = ReduceItem(
+                    args.itemId,
+                    aantal
+                )
+                RetrofitClient.instance.postReduceItemAsync(reduceItem).await()
+            /*} catch (t:Throwable) {
+                returnMessage = "Error"
+            }*/
+        }
+        returnMessage = "${student.voornaam} heeft een ${args.itemName} ${if(onPurpose==0) "niet" else ""} opzettelijk gebroken."
+        return returnMessage
     }
 }

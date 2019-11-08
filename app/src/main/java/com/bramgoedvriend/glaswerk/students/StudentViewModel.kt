@@ -9,6 +9,10 @@ import com.bramgoedvriend.glaswerk.domain.Student
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class StudentViewModel(application: Application) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
@@ -19,13 +23,19 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
     val students: LiveData<List<Student>>
         get() = _students
 
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
-        var result = RetrofitClient.instance.getStudentsByClass(1)
-        result.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _status.value = ApiStatus.LOADING }
-            .doOnTerminate { _status.value = ApiStatus.DONE }
-            .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe { res -> _students.value = res }
+        _status.value = ApiStatus.LOADING
+        coroutineScope.launch {
+            try {
+                val result = RetrofitClient.instance.getStudentsByClassAsync(1).await()
+                _students.value = result
+                _status.value = ApiStatus.DONE
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.ERROR
+            }
+        }
     }
 }

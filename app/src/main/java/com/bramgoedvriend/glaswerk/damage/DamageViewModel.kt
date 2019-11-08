@@ -29,19 +29,24 @@ class DamageViewModel(application: Application) : AndroidViewModel(application) 
     val navigateToLeerlingen
         get() = _navigateToLeerlingen
 
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
         getItems()
     }
 
     private fun getItems() {
-        val result = RetrofitClient.instance.getItems()
-        result.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _status.value = ApiStatus.LOADING }
-            .doOnTerminate { _status.value = ApiStatus.DONE }
-            .doOnError { _status.value = ApiStatus.ERROR }
-            .subscribe { res -> _items.value = res }
-
+        _status.value = ApiStatus.LOADING
+        coroutineScope.launch {
+            try {
+                val result = RetrofitClient.instance.getItemsAsync().await()
+                _items.value = result
+                _status.value = ApiStatus.DONE
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.ERROR
+            }
+        }
     }
 
     fun onItemClicked(item: Item) {
@@ -50,5 +55,10 @@ class DamageViewModel(application: Application) : AndroidViewModel(application) 
 
     fun onLeerlingenNavigated() {
         _navigateToLeerlingen.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
