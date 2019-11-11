@@ -23,6 +23,9 @@ interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg item: DatabaseItem)
+
+    @Query("DELETE FROM databaseitem")
+    fun dropItems()
 }
 
 @Dao

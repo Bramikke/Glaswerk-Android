@@ -10,25 +10,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
+import com.bramgoedvriend.glaswerk.damage.ItemListener
 import com.bramgoedvriend.glaswerk.databinding.FragmentStockBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
 import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.network.ItemNavigate
 
 class StockFragment : Fragment() {
     private lateinit var binding: FragmentStockBinding
     private lateinit var adapter: StockAdapter
     private lateinit var stockViewModel: StockViewModel
     private lateinit var sharedPreferences: SharedPreferences
-    private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key -> sharedPrefChange()}
+    private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> sharedPrefChange()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentStockBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_stock, container, false
         )
 
@@ -36,12 +39,29 @@ class StockFragment : Fragment() {
         val viewModelFactory = StockViewModelFactory(application)
         stockViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(StockViewModel::class.java)
-        adapter = StockAdapter()
+        adapter = StockAdapter(ItemListener { item -> stockViewModel.onItemClicked(item) })
         binding.itemList.adapter = adapter
+
+        stockViewModel.navigateToDetail.observe(viewLifecycleOwner, Observer { item ->
+            item?.let {
+                findNavController().navigate(StockFragmentDirections.actionStockFragmentToStockDetailFragment(
+                    ItemNavigate(
+                        id = it.id,
+                        roomId = it.roomId,
+                        name = it.name,
+                        amount = it.amount,
+                        minAmount = it.minAmount,
+                        maxAmount = it.maxAmount,
+                        orderAmount = it.orderAmount
+                    )
+                ))
+                stockViewModel.onDetailNavigated()
+            }
+        })
 
         sharedPreferences =  application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
 
-        itemObserver()
+        itemRoomObserver()
 
         binding.room.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
@@ -50,13 +70,23 @@ class StockFragment : Fragment() {
             dialogFragment.show(fragmentTransaction, "dialog")
         }
 
+        binding.fab.setOnClickListener {
+            findNavController().navigate(StockFragmentDirections.actionStockFragmentToStockDetailFragment(null))
+        }
+
         return binding.root
     }
 
-    private fun itemObserver() {
+    private fun itemRoomObserver() {
+        if(stockViewModel.lokaal.hasObservers()){
+            stockViewModel.lokaal.removeObservers(viewLifecycleOwner)
+        }
         if(stockViewModel.items.hasObservers()){
             stockViewModel.items.removeObservers(viewLifecycleOwner)
         }
+        stockViewModel.lokaal.observe(viewLifecycleOwner, Observer {
+            binding.roomName.text = it.name
+        })
         stockViewModel.items.observe(viewLifecycleOwner, Observer {
             binding.loadingOverlay.visibility = View.VISIBLE
             it?.let {
@@ -68,7 +98,7 @@ class StockFragment : Fragment() {
 
     private fun sharedPrefChange() {
         stockViewModel.updateRoom()
-        itemObserver()
+        itemRoomObserver()
     }
 
     override fun onResume() {

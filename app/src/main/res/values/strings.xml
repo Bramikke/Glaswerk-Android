@@ -30,4 +30,13 @@
     <string name="cancel">Annuleer</string>
     <string name="orderAmount">Aantal besteld:</string>
     <string name="sharedPreferences">ClassRoom</string>
+    <string name="AddItem">Voeg item toe:</string>
+    <string name="Name">Naam</string>
+    <string name="Amount">Aantal</string>
+    <string name="Min_amount">Minimum aantal</string>
+    <string name="Max_amount">Maximum aantal</string>
+    <string name="Order_amount">Bestel hoeveelheid</string>
+    <string name="Save">Opslaan</string>
+    <string name="Remove">Verwijder</string>
+    <string name="EditItem">Wijzig item:</string>
 </resources>

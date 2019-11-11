@@ -33,9 +33,18 @@ interface GlaswerkAPIService {
     fun postStudentItemBrokenAsync(@Body body : StudentItem): Deferred<Any>
 
     @POST("reduceItem")
-    fun postReduceItemAsync(@Body body: ReduceItem): Deferred<Any>
+    fun postReduceItemAsync(@Body body: ItemId): Deferred<Any>
 
     @POST("orderItem")
     fun postOrderItemAsync(@Body body: OrderItem): Deferred<Any>
+
+    @POST("addItem")
+    fun postAddItem(@Body body: com.bramgoedvriend.glaswerk.network.Item): Deferred<Any>
+
+    @POST("editItem")
+    fun postEditItem(@Body body: com.bramgoedvriend.glaswerk.network.Item): Deferred<Any>
+
+    @POST("deleteItem")
+    fun postRemoveItem(@Body body: ItemId): Deferred<Any>
 
 }

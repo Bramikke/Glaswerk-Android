@@ -31,4 +31,12 @@ class ItemsRepository(private val database: Database):Repository<Item> {
             database.itemDao.insertAll(*items.asDatabaseModel())
         }
     }
+
+    suspend fun fullRefresh() {
+        withContext(Dispatchers.IO) {
+            val items = RetrofitClient.instance.getItemsAsync().await()
+            database.itemDao.dropItems()
+            database.itemDao.insertAll(*items.asDatabaseModel())
+        }
+    }
 }

@@ -62,7 +62,7 @@ class DamageStudentViewModel(application: Application, private val item: DamageI
         var returnMessage: String;
         coroutineScope.launch {
             try {
-                RetrofitClient.instance.postReduceItemAsync(ReduceItem(item.itemid)).await()
+                RetrofitClient.instance.postReduceItemAsync(ItemId(item.itemid)).await()
             } catch (t:Throwable) {
                 returnMessage = "Error"
             }

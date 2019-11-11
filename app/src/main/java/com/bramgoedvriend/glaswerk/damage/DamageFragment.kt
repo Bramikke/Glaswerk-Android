@@ -38,6 +38,7 @@ class DamageFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_damage, container, false
         )
+        binding.loadingOverlay.visibility = View.VISIBLE
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = DamageViewModelFactory(application)
@@ -50,25 +51,6 @@ class DamageFragment : Fragment() {
             item?.let {
                 findNavController().navigate(DamageFragmentDirections.actionDamageFragmentToDamageStudentFragment(it))
                 damageViewModel.onLeerlingenNavigated()
-            }
-        })
-
-        damageViewModel.status.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    ApiStatus.LOADING -> {
-                        binding.itemList.visibility = View.INVISIBLE
-                        binding.loadingOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.ERROR -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.errorOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.DONE -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.itemList.visibility = View.VISIBLE
-                    }
-                }
             }
         })
 
@@ -111,6 +93,7 @@ class DamageFragment : Fragment() {
         damageViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                binding.loadingOverlay.visibility = View.GONE
             }
         })
     }

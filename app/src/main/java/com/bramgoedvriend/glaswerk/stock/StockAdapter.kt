@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bramgoedvriend.glaswerk.damage.ItemListener
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
 import com.bramgoedvriend.glaswerk.domain.Item
 
-class StockAdapter : ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
+class StockAdapter(val clickListener: ItemListener): ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,9 +21,11 @@ class StockAdapter : ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallbac
     class ViewHolder private constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            item: Item
+            item: Item,
+            clickListener: ItemListener
         ) {
             binding.item = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 

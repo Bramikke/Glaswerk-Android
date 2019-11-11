@@ -27,7 +27,11 @@
         android:id="@+id/StockFragment"
         android:name="com.bramgoedvriend.glaswerk.stock.StockFragment"
         android:label="@string/title_stock"
-        tools:layout="@layout/fragment_stock" />
+        tools:layout="@layout/fragment_stock" >
+        <action
+            android:id="@+id/action_StockFragment_to_stockDetailFragment"
+            app:destination="@id/stockDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/StudentsFragment"
         android:name="com.bramgoedvriend.glaswerk.students.StudentsFragment"
@@ -43,5 +47,17 @@
         <argument
             android:name="item"
             app:argType="com.bramgoedvriend.glaswerk.network.DamageItemNavigate" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockDetailFragment"
+        android:name="com.bramgoedvriend.glaswerk.stock.stockDetail.StockDetailFragment"
+        android:label="Item">
+        <action
+            android:id="@+id/action_stockDetailFragment_to_StockFragment"
+            app:destination="@id/StockFragment" />
+        <argument
+            android:name="item"
+            app:argType="com.bramgoedvriend.glaswerk.network.ItemNavigate"
+            app:nullable="true" />
     </fragment>
 </navigation>
