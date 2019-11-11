@@ -8,8 +8,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.bramgoedvriend.glaswerk.login.LoginDataSource
-import com.bramgoedvriend.glaswerk.login.LoginRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +27,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.DamageFragment,
                 R.id.OrdersFragment,
                 R.id.StockFragment,
-                R.id.StudentsFragment,
-                R.id.settingsFragment
+                R.id.StudentsFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -45,9 +42,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    fun logout() {
-        LoginRepository(LoginDataSource(), this).logout()
     }
 }

@@ -60,12 +60,12 @@ class StudentsFragment : Fragment() {
             }
         })
 
-        binding.klas.setOnClickListener {
+        /*binding.klas.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.addToBackStack("KlassDialog")
             val dialogFragment = BottomDialogFragment(Klas::class.java)
             dialogFragment.show(fragmentTransaction, "dialog")
-        }
+        }*/ //TODO
 
         return binding.root
     }

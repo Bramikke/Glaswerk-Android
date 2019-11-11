@@ -11,23 +11,19 @@ import retrofit2.http.*
 
 interface GlaswerkAPIService {
     @GET("item")
-    fun getItemsAsync(): Deferred<List<Item>>
+    fun getItemsAsync(): Deferred<NetworkItemsContainer>
 
-    @GET("item")
-    fun getItemsAsync(@Query("id") id: String): Deferred<List<Item>>
+    @GET("student")
+    fun getStudentsAsync(): Deferred<NetworkStudentContainer>
 
     @GET("lokaal")
-    fun getRoomAsync(): Deferred<List<Lokaal>>
+    fun getRoomAsync(): Deferred<NetworkRoomContainer>
 
     @GET("klas")
-    fun getClassAsync(): Deferred<List<Klas>>
+    fun getClassAsync(): Deferred<NetworkClassContainer>
 
-    @GET("itemOrders")
-    fun getItemOrdersAsync(): Deferred<List<Item>>
-
-    @GET("studentByClass")
-    fun getStudentsByClassAsync(@Query("id") id: Int): Deferred<List<Student>>
-
+    @GET("studentItem")
+    fun getStudentItemAsync(): Deferred<NetworkStudentItemContainer>
 
     @GET("studentByClassByItem")
     fun getStudentsByClassByItemAsync(@Query("klasid") classid: Int,
@@ -38,5 +34,8 @@ interface GlaswerkAPIService {
 
     @POST("reduceItem")
     fun postReduceItemAsync(@Body body: ReduceItem): Deferred<Any>
+
+    @POST("orderItem")
+    fun postOrderItemAsync(@Body body: OrderItem): Deferred<Any>
 
 }

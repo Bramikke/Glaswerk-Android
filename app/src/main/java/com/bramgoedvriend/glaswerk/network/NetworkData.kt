@@ -11,7 +11,19 @@ data class StudentItem(
 ):Parcelable
 
 @Parcelize
-data class ReduceItem(
+data class ReduceItem (
+    val itemid: Int
+):Parcelable
+
+@Parcelize
+data class OrderItem(
     val itemid: Int,
     val aantal: Int
+):Parcelable
+
+@Parcelize
+data class DamageItemNavigate(
+    val itemid: Int,
+    val itemName: String,
+    val itemAmount: Int
 ):Parcelable

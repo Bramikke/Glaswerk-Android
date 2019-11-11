@@ -41,7 +41,7 @@ class DamageStudentAdapter(val clickListener: StudentListener) :
 
 class DamageDiffCallback : DiffUtil.ItemCallback<Student>() {
     override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
-        return oldItem.leerlingid == newItem.leerlingid
+        return oldItem.studentId == newItem.studentId
     }
 
     override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {

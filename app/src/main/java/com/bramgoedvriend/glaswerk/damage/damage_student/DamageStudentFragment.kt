@@ -2,6 +2,7 @@ package com.bramgoedvriend.glaswerk.damage.damage_student
 
 
 import android.app.Dialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,27 +26,29 @@ import com.bramgoedvriend.glaswerk.domain.Student
 
 class DamageStudentFragment : Fragment() {
 
+    private lateinit var binding: FragmentDamageStudentsBinding
     private lateinit var damageStudentViewModel : DamageStudentViewModel
+    private lateinit var adapter: DamageStudentAdapter
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> sharedPrefChange()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentDamageStudentsBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_damage_students, container, false
         )
 
         val application = requireNotNull(this.activity).application
         val args = DamageStudentFragmentArgs.fromBundle(arguments!!)
-        binding.itemName.text = args.itemName
+        binding.itemName.text = args.item.itemName
 
-        val viewModelFactory = DamageStudentViewModelFactory(application, args)
-        damageStudentViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(DamageStudentViewModel::class.java)
-
-        val adapter = DamageStudentAdapter(StudentListener { student ->
-            damageStudentViewModel.onStudentClicked(student)
-        })
+        val viewModelFactory = DamageStudentViewModelFactory(application, args.item)
+        damageStudentViewModel = ViewModelProviders.of(this, viewModelFactory).get(DamageStudentViewModel::class.java)
+        adapter = DamageStudentAdapter(StudentListener { student -> showDialog(student) })
+        sharedPreferences =  application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
 
         binding.studentList.adapter = adapter
 
@@ -67,18 +71,7 @@ class DamageStudentFragment : Fragment() {
             }
         })
 
-        damageStudentViewModel.items.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-            }
-        })
-
-        damageStudentViewModel.selectStudent.observe(this, Observer { student ->
-            student?.let {
-                showDialog(it)
-                damageStudentViewModel.onNavigated()
-            }
-        })
+        studentClassObserver()
 
         binding.classLayout.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
@@ -88,6 +81,27 @@ class DamageStudentFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun studentClassObserver() {
+        if (damageStudentViewModel.klas.hasObservers()) {
+            damageStudentViewModel.klas.removeObservers(viewLifecycleOwner)
+        }
+        if(damageStudentViewModel.students.hasObservers()) {
+            damageStudentViewModel.students.removeObservers(viewLifecycleOwner)
+        }
+
+        damageStudentViewModel.klas.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.className.text = it.name
+            }
+        })
+
+        damageStudentViewModel.students.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
     }
 
     private fun showDialog(student: Student) {
@@ -123,5 +137,20 @@ class DamageStudentFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun sharedPrefChange() {
+        damageStudentViewModel.updateClass()
+        studentClassObserver()
+    }
+
+    override fun onResume() {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(changeListener)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(changeListener)
+        super.onPause()
     }
 }

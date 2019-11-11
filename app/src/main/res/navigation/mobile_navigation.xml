@@ -34,24 +34,14 @@
         android:label="@string/title_students"
         tools:layout="@layout/fragment_students" />
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.bramgoedvriend.glaswerk.settings.settingsFragment"
-        android:label="@string/title_settings" />
-    <fragment
         android:id="@+id/damageStudentFragment"
         android:name="com.bramgoedvriend.glaswerk.damage.damage_student.DamageStudentFragment"
         android:label="@string/title_select_student">
-        <argument
-            android:name="itemId"
-            app:argType="integer" />
-        <argument
-            android:name="itemName"
-            app:argType="string" />
         <action
             android:id="@+id/action_damageStudentFragment_to_DamageFragment"
             app:destination="@id/DamageFragment" />
         <argument
-            android:name="ItemAmount"
-            app:argType="integer" />
+            android:name="item"
+            app:argType="com.bramgoedvriend.glaswerk.network.DamageItemNavigate" />
     </fragment>
 </navigation>

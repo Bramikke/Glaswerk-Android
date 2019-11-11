@@ -21,9 +21,4 @@
         android:icon="@drawable/ic_students_black_24dp"
         android:title="@string/title_students" />
 
-    <item
-        android:id="@+id/settingsFragment"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/title_settings" />
-
 </menu>

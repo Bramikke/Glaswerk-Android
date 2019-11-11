@@ -1,4 +1,4 @@
-package com.bramgoedvriend.glaswerk
+package com.bramgoedvriend.glaswerk.util
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -6,7 +6,6 @@ import com.bramgoedvriend.glaswerk.domain.Item
 import com.bramgoedvriend.glaswerk.domain.Klas
 import com.bramgoedvriend.glaswerk.domain.Lokaal
 import com.bramgoedvriend.glaswerk.domain.Student
-import org.w3c.dom.Text
 
 @BindingAdapter("itemNameString")
 fun TextView.setItemNameString(item: Item?) {
@@ -61,27 +60,27 @@ fun TextView.setItemLokaalString(item: Item?) {
 @BindingAdapter("studentNameString")
 fun TextView.setStudentNameString(student: Student?) {
     student?.let {
-        text = String.format("%s %s", student.voornaam, student.achternaam)
+        text = String.format("%s %s", student.firstName, student.lastName)
     }
 }
 
 @BindingAdapter("studentNumberBrokenString")
 fun TextView.setStudentNumberBrokenString(student: Student?) {
     student?.let {
-        text = student.aantalGebroken.toString()
+        text = student.brokenAmount.toString()
     }
 }
 
 @BindingAdapter("roomNameString")
 fun TextView.setRoomNameString(room: Lokaal?) {
     room?.let {
-        text = room.naam
+        text = room.name
     }
 }
 
 @BindingAdapter("classNameString")
 fun TextView.setClassNameString(klas: Klas?) {
     klas?.let {
-        text = klas.naam
+        text = klas.name
     }
 }

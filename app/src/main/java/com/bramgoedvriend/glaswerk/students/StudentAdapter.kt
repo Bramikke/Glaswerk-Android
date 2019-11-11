@@ -37,7 +37,7 @@ class StudentAdapter : ListAdapter<Student, StudentAdapter.ViewHolder>(StudentDi
 
 class StudentDiffCallback : DiffUtil.ItemCallback<Student>() {
     override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
-        return oldItem.leerlingid == newItem.leerlingid
+        return oldItem.studentId == newItem.studentId
     }
 
     override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {

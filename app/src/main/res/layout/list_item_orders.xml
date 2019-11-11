@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.bramgoedvriend.glaswerk.domain.Item" />
+
+        <variable
+            name="clickListener"
+            type="com.bramgoedvriend.glaswerk.orders.OrderListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +21,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> clickListener.onClick(item)}"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"

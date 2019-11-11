@@ -1,9 +1,9 @@
 package com.bramgoedvriend.glaswerk.domain
 
 data class Student(
-    val leerlingid: Int,
-    val klasid: Int,
-    val voornaam: String,
-    val achternaam: String,
-    val aantalGebroken: Int
+    val studentId: Int,
+    val classId: Int,
+    val firstName: String,
+    val lastName: String,
+    val brokenAmount: Int?
 )

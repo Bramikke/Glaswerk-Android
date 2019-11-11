@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.bramgoedvriend.glaswerk.domain.Klas" />
+
+        <variable
+            name="clickListener"
+            type="com.bramgoedvriend.glaswerk.bottomDialog.ItemListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,6 +23,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClick(item)}"
         app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

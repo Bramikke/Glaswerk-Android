@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
 import com.bramgoedvriend.glaswerk.databinding.ListItemOrdersBinding
 import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.generated.callback.OnClickListener
 
-class OrderAdapter : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallback()) {
+class OrderAdapter(val clickListener: OrderListener) : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,8 +21,9 @@ class OrderAdapter : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallbac
 
     class ViewHolder private constructor(val binding: ListItemOrdersBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Item) {
+        fun bind(item: Item, clickListener: OrderListener) {
             binding.item = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -48,4 +49,8 @@ class OrderDiffCallback : DiffUtil.ItemCallback<Item>() {
         return oldItem == newItem
     }
 
+}
+
+class OrderListener(val clickListener: (item: Item) -> Unit) {
+    fun onClick(item: Item) = clickListener(item)
 }

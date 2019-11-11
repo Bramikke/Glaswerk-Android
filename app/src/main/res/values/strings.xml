@@ -28,4 +28,6 @@
     <string name="onPurpose">Opzettelijk</string>
     <string name="notOnPurpose">Niet opzettelijk</string>
     <string name="cancel">Annuleer</string>
+    <string name="orderAmount">Aantal besteld:</string>
+    <string name="sharedPreferences">ClassRoom</string>
 </resources>

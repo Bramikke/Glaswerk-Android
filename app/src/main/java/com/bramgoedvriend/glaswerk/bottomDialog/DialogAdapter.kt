@@ -10,9 +10,9 @@ import com.bramgoedvriend.glaswerk.databinding.ListRoomCardBinding
 import com.bramgoedvriend.glaswerk.domain.Klas
 import com.bramgoedvriend.glaswerk.domain.Lokaal
 
-class RoomAdapter: ListAdapter<Lokaal, RoomAdapter.ViewHolder>(DiffCallback <Lokaal>()) {
+class RoomAdapter (val clickListener: ItemListener<Lokaal>): ListAdapter<Lokaal, RoomAdapter.ViewHolder>(DiffCallback <Lokaal>()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,8 +22,9 @@ class RoomAdapter: ListAdapter<Lokaal, RoomAdapter.ViewHolder>(DiffCallback <Lok
     class ViewHolder private constructor(private val binding: ListRoomCardBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Lokaal) {
+        fun bind(item: Lokaal, clickListener: ItemListener<Lokaal>) {
             binding.item = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -37,9 +38,9 @@ class RoomAdapter: ListAdapter<Lokaal, RoomAdapter.ViewHolder>(DiffCallback <Lok
     }
 }
 
-class ClassAdapter: ListAdapter<Klas, ClassAdapter.ViewHolder>(DiffCallback<Klas>()) {
+class ClassAdapter (val clickListener: ItemListener<Klas>): ListAdapter<Klas, ClassAdapter.ViewHolder>(DiffCallback<Klas>()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,8 +50,9 @@ class ClassAdapter: ListAdapter<Klas, ClassAdapter.ViewHolder>(DiffCallback<Klas
     class ViewHolder private constructor(private val binding: ListClassCardBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Klas) {
+        fun bind(item: Klas, clickListener: ItemListener<Klas>) {
             binding.item = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -67,10 +69,10 @@ class ClassAdapter: ListAdapter<Klas, ClassAdapter.ViewHolder>(DiffCallback<Klas
 class DiffCallback <T> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
         if(oldItem is Lokaal && newItem is Lokaal) {
-            return oldItem.lokaalid == newItem.lokaalid
+            return oldItem.roomId == newItem.roomId
         }
         else if(oldItem is Klas && newItem is Klas) {
-            return oldItem.klasid == newItem.klasid
+            return oldItem.classId == newItem.classId
         }
         return oldItem == newItem
     }
@@ -78,4 +80,8 @@ class DiffCallback <T> : DiffUtil.ItemCallback<T>() {
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
         return oldItem is Any == newItem is Any
     }
+}
+
+class ItemListener <T> (val clickListener: (item: T) -> Unit) {
+    fun onClick(item: T) = clickListener(item)
 }

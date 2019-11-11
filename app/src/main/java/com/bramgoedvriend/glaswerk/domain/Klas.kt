@@ -1,6 +1,6 @@
 package com.bramgoedvriend.glaswerk.domain
 
 data class Klas(
-    val klasid: Int,
-    val naam: String
+    val classId: Int,
+    val name: String
 )
