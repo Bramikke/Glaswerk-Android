@@ -16,6 +16,8 @@ class StudentRepository(private val database: Database):Repository<Student> {
 
     fun studentsByClassByItem(itemid: Int, classid: Int) : LiveData<List<Student>> = database.studentDao.getStudentsByClassByItem(itemid, classid)
 
+    fun studentsByClass(classid: Int): LiveData<List<Student>> = database.studentDao.getStudentsByClass(classid)
+
     override suspend fun refresh()  {
         withContext(Dispatchers.IO) {
             val students = RetrofitClient.instance.getStudentsAsync().await()
@@ -23,6 +25,14 @@ class StudentRepository(private val database: Database):Repository<Student> {
             val studentItems = RetrofitClient.instance.getStudentItemAsync().await()
             database.studentDao.dropStudentItems()
             database.studentDao.insertStudentItems(*studentItems.asDatabaseModel())
+        }
+    }
+
+    suspend fun fullRefresh() {
+        withContext(Dispatchers.IO) {
+            val students = RetrofitClient.instance.getStudentsAsync().await()
+            database.studentDao.dropStudents()
+            database.studentDao.insertAll(*students.asDatabaseModel())
         }
     }
 }

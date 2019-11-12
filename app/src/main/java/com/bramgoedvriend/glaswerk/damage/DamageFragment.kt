@@ -54,6 +54,12 @@ class DamageFragment : Fragment() {
             }
         })
 
+        damageViewModel.status.observe(this, Observer {
+            if(it == ApiStatus.OFFLINE) {
+                binding.offlineOverlay.visibility = View.VISIBLE
+            }
+        })
+
         lokaalItemObserver()
         classObserver()
 
@@ -62,14 +68,14 @@ class DamageFragment : Fragment() {
         binding.lokaal.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.addToBackStack("LokaalDialog")
-            val dialogFragment = BottomDialogFragment(Lokaal::class.java)
+            val dialogFragment = BottomDialogFragment(Lokaal::class.java, false)
             dialogFragment.show(fragmentTransaction, "dialog")
         }
 
         binding.klas.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.addToBackStack("KlassDialog")
-            val dialogFragment = BottomDialogFragment(Klas::class.java)
+            val dialogFragment = BottomDialogFragment(Klas::class.java, false)
             dialogFragment.show(fragmentTransaction, "dialog")
         }
 

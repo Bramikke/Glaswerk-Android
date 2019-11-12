@@ -40,8 +40,12 @@ class DamageStudentViewModel(application: Application, private val item: DamageI
 
     init {
         coroutineScope.launch {
-            studentRepository.refresh()
-            classRepository.refresh()
+            try {
+                studentRepository.refresh()
+                classRepository.refresh()
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.OFFLINE
+            }
         }
     }
 
@@ -60,26 +64,31 @@ class DamageStudentViewModel(application: Application, private val item: DamageI
 
     fun studentBroke(student: Student, onPurpose: Int) : String {
         var returnMessage: String;
-        coroutineScope.launch {
-            try {
-                RetrofitClient.instance.postReduceItemAsync(ItemId(item.itemid)).await()
-            } catch (t:Throwable) {
-                returnMessage = "Error"
+        if(status.value != ApiStatus.OFFLINE) {
+            coroutineScope.launch {
+                try {
+                    RetrofitClient.instance.postReduceItemAsync(ItemId(item.itemid)).await()
+                } catch (t: Throwable) {
+                    returnMessage = "Error"
+                }
             }
-        }
-        coroutineScope.launch {
-            try {
-                val studentItem = StudentItem(
-                    student.studentId,
-                    item.itemid,
-                    onPurpose
-                )
-                RetrofitClient.instance.postStudentItemBrokenAsync(studentItem).await()
-            } catch (t:Throwable) {
-                returnMessage = "Error"
+            coroutineScope.launch {
+                try {
+                    val studentItem = StudentItem(
+                        student.studentId,
+                        item.itemid,
+                        onPurpose
+                    )
+                    RetrofitClient.instance.postStudentItemBrokenAsync(studentItem).await()
+                } catch (t: Throwable) {
+                    returnMessage = "Error"
+                }
             }
+            returnMessage =
+                "${student.firstName} heeft een ${item.itemName} ${if (onPurpose == 0) "niet" else ""} opzettelijk gebroken."
+        } else {
+            returnMessage = "Je bent momenteel offline. Probeer later opnieuw."
         }
-        returnMessage = "${student.firstName} heeft een ${item.itemName} ${if(onPurpose==0) "niet" else ""} opzettelijk gebroken."
         return returnMessage
     }
 }

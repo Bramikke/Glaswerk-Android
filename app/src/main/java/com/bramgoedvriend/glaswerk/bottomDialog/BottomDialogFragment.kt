@@ -1,13 +1,18 @@
 package com.bramgoedvriend.glaswerk.bottomDialog
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -20,17 +25,21 @@ import com.bramgoedvriend.glaswerk.domain.Klas
 import com.bramgoedvriend.glaswerk.domain.Lokaal
 
 @Suppress("UNCHECKED_CAST")
-class BottomDialogFragment <T> (val type: Class<T>) : DialogFragment() {
+class BottomDialogFragment <T> (val type: Class<T>, val add: Boolean) : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         val binding = DataBindingUtil.inflate<PopupBottomBinding>(
             inflater, R.layout.popup_bottom, container, false
         )
 
-
         val application = requireNotNull(this.activity).application
         val viewModelFactory = DialogViewModelFactory(application, type)
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(DialogViewModel::class.java)
+
+        if(add) {
+            binding.cardAdd.visibility = View.VISIBLE
+            binding.spacer.visibility = View.GONE
+        }
 
         val adapter: Any
         if(type == Lokaal::class.java){
@@ -49,7 +58,7 @@ class BottomDialogFragment <T> (val type: Class<T>) : DialogFragment() {
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it == ApiStatus.ERROR) {
+                if (it == ApiStatus.OFFLINE) { //TODO implement offline
                     Toast.makeText(context, "Error, probeer het later opnieuw", Toast.LENGTH_SHORT).show()
                     dialog!!.dismiss()
                 }
@@ -69,6 +78,29 @@ class BottomDialogFragment <T> (val type: Class<T>) : DialogFragment() {
         binding.cardCancel.setOnClickListener {
             dialog!!.dismiss()
         }
+
+        binding.cardAdd.setOnClickListener {
+            val builder = AlertDialog.Builder(context!!)
+            builder.setTitle(R.string.Ad)
+            val input = EditText(context!!)
+            input.hint = "Naam"
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            input.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
+                input.post {
+                    val inputMethodManager = application.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT)
+                }
+            }
+            input.requestFocus()
+            builder.setView(input)
+            builder.setPositiveButton("Voeg toe") { _, _ ->
+                viewModel.add(input.text.toString())
+                dialog!!.dismiss()
+            }
+            builder.setNegativeButton("Annuleer") { dialog, _ -> dialog.cancel() }
+            builder.show()
+        }
+
         return binding.root
     }
 

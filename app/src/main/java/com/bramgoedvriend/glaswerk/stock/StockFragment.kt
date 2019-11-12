@@ -1,11 +1,13 @@
 package com.bramgoedvriend.glaswerk.stock
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -27,6 +29,7 @@ class StockFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> sharedPrefChange()}
 
+    @SuppressLint("RestrictedApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +37,7 @@ class StockFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_stock, container, false
         )
+        binding.loadingOverlay.visibility = View.VISIBLE
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = StockViewModelFactory(application)
@@ -59,6 +63,13 @@ class StockFragment : Fragment() {
             }
         })
 
+        stockViewModel.status.observe(viewLifecycleOwner, Observer {
+            if(it == ApiStatus.OFFLINE) {
+                binding.errorOverlay
+                binding.fab.visibility = View.GONE
+            }
+        })
+
         sharedPreferences =  application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
 
         itemRoomObserver()
@@ -66,8 +77,13 @@ class StockFragment : Fragment() {
         binding.room.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.addToBackStack("LokaalDialog")
-            val dialogFragment = BottomDialogFragment(Lokaal::class.java)
+            val dialogFragment = BottomDialogFragment(Lokaal::class.java, true)
             dialogFragment.show(fragmentTransaction, "dialog")
+        }
+
+        binding.room.setOnLongClickListener {
+            Toast.makeText(context!!, "Long clicked - remove room", Toast.LENGTH_SHORT).show()
+            true
         }
 
         binding.fab.setOnClickListener {
@@ -88,7 +104,6 @@ class StockFragment : Fragment() {
             binding.roomName.text = it.name
         })
         stockViewModel.items.observe(viewLifecycleOwner, Observer {
-            binding.loadingOverlay.visibility = View.VISIBLE
             it?.let {
                 adapter.submitList(it)
                 binding.loadingOverlay.visibility = View.GONE

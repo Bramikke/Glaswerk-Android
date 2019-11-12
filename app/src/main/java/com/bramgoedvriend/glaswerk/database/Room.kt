@@ -39,6 +39,9 @@ interface StudentDao {
     @Query("select ds.studentId, ds.classId, ds.firstName, ds.lastName, count(CASE WHEN dsi.itemId=:itemid THEN 1 ELSE NULL END) as brokenAmount from databasestudent ds left join databasestudentitem dsi on ds.studentId = dsi.studentId where ds.classId = :classid group by ds.studentId")
     fun getStudentsByClassByItem(itemid: Int, classid: Int): LiveData<List<Student>>
 
+    @Query("select ds.studentId, ds.classId, ds.firstName, ds.lastName, count(dsi.itemId) as brokenAmount from databasestudent ds left join databasestudentitem dsi on ds.studentId = dsi.studentId where classId = :classid group by ds.studentId order by firstName")
+    fun getStudentsByClass(classid: Int): LiveData<List<Student>>
+
     @Query("select * from databasestudentitem")
     fun getStudentItem(): LiveData<List<StudentItem>>
 
@@ -50,6 +53,9 @@ interface StudentDao {
 
     @Query("DELETE FROM databasestudentitem")
     fun dropStudentItems()
+
+    @Query("DELETE FROM databasestudent")
+    fun dropStudents()
 }
 
 @Dao

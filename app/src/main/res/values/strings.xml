@@ -39,4 +39,11 @@
     <string name="Save">Opslaan</string>
     <string name="Remove">Verwijder</string>
     <string name="EditItem">Wijzig item:</string>
+    <string name="Add">+ Voeg toe</string>
+    <string name="Ad">Voeg toe</string>
+    <string name="AddStudent">Voeg student toe:</string>
+    <string name="EditStudent">Wijzig student:</string>
+    <string name="Firstname">Voornaam</string>
+    <string name="Lastname">Achternaam</string>
+    <string name="Offline">Geen internetverbinding</string>
 </resources>

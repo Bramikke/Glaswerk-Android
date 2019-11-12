@@ -36,7 +36,11 @@
         android:id="@+id/StudentsFragment"
         android:name="com.bramgoedvriend.glaswerk.students.StudentsFragment"
         android:label="@string/title_students"
-        tools:layout="@layout/fragment_students" />
+        tools:layout="@layout/fragment_students" >
+        <action
+            android:id="@+id/action_StudentsFragment_to_studentDetailFragment"
+            app:destination="@id/studentDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/damageStudentFragment"
         android:name="com.bramgoedvriend.glaswerk.damage.damage_student.DamageStudentFragment"
@@ -58,6 +62,18 @@
         <argument
             android:name="item"
             app:argType="com.bramgoedvriend.glaswerk.network.ItemNavigate"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentDetailFragment"
+        android:name="com.bramgoedvriend.glaswerk.students.studentDetail.StudentDetailFragment"
+        android:label="Student">
+        <action
+            android:id="@+id/action_studentDetailFragment_to_StudentsFragment"
+            app:destination="@id/StudentsFragment" />
+        <argument
+            android:name="student"
+            app:argType="com.bramgoedvriend.glaswerk.network.StudentNavigate"
             app:nullable="true" />
     </fragment>
 </navigation>

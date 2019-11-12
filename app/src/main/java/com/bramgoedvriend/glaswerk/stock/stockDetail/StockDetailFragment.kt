@@ -1,11 +1,8 @@
 package com.bramgoedvriend.glaswerk.stock.stockDetail
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentStockDetailBinding
-import com.bramgoedvriend.glaswerk.domain.Item
 
 class StockDetailFragment : Fragment() {
     private lateinit var binding: FragmentStockDetailBinding

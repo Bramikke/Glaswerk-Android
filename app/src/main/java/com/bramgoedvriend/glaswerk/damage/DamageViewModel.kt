@@ -43,9 +43,13 @@ class DamageViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         coroutineScope.launch {
-            itemsRepository.refresh()
-            roomRepository.refresh()
-            classRepository.refresh()
+            try {
+                itemsRepository.refresh()
+                roomRepository.refresh()
+                classRepository.refresh()
+            } catch(t:Throwable) {
+                _status.value = ApiStatus.OFFLINE
+            }
         }
     }
 

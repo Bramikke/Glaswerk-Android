@@ -16,6 +16,16 @@ data class ItemId (
 ):Parcelable
 
 @Parcelize
+data class StudentId (
+    val leerlingid: Int
+):Parcelable
+
+@Parcelize
+data class RoomClassName(
+    val naam: String
+):Parcelable
+
+@Parcelize
 data class OrderItem(
     val itemid: Int,
     val aantal: Int
@@ -40,6 +50,14 @@ data class ItemNavigate(
 ):Parcelable
 
 @Parcelize
+data class StudentNavigate(
+    val studentId: Int,
+    val classId: Int,
+    val firstName: String,
+    val lastName: String
+):Parcelable
+
+@Parcelize
 data class Item(
     val itemid: Int?,
     val lokaal_id: Int,
@@ -48,4 +66,12 @@ data class Item(
     val min_aantal: Int,
     val max_aantal: Int,
     val bestel_hoeveelheid: Int
+):Parcelable
+
+@Parcelize
+data class Student(
+    val leerlingid: Int?,
+    val klasid: Int,
+    val voornaam: String,
+    val achternaam: String
 ):Parcelable

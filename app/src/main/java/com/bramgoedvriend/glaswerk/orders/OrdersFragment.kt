@@ -41,25 +41,18 @@ class OrdersFragment : Fragment() {
         orderViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(OrderViewModel::class.java)
 
-        val adapter = OrderAdapter(OrderListener { item -> showDialog(item) })
+        val adapter = OrderAdapter(OrderListener { item ->
+            if(orderViewModel.status.value != ApiStatus.OFFLINE) {
+                showDialog(item)
+            } else {
+                Toast.makeText(context!!, "Je bent momenteel offline.", Toast.LENGTH_SHORT).show()
+            }
+        })
         binding.itemList.adapter = adapter
 
         orderViewModel.status.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    ApiStatus.LOADING -> {
-                        binding.itemList.visibility = View.INVISIBLE
-                        binding.loadingOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.ERROR -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.errorOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.DONE -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.itemList.visibility = View.VISIBLE
-                    }
-                }
+            if(it == ApiStatus.OFFLINE) {
+                binding.offlineOverlay.visibility = View.VISIBLE
             }
         })
 

@@ -11,8 +11,8 @@ import java.lang.Exception
 
 object RetrofitClient {
 
-    //private const val BASE_URL = "http://ec2-35-180-181-246.eu-west-3.compute.amazonaws.com:8080/"
-    private const val BASE_URL = "http://192.168.0.122:8080/"
+    private const val BASE_URL = "http://ec2-35-180-181-246.eu-west-3.compute.amazonaws.com:8080/"
+    //private const val BASE_URL = "http://192.168.0.122:8080/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

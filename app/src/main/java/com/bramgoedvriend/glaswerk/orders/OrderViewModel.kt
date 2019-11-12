@@ -21,16 +21,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {
-    fun order(item: Item, amount: String) {
-        coroutineScope.launch {
-            RetrofitClient.instance.postOrderItemAsync(OrderItem(
-                item.id,
-                item.amount + amount.toInt()
-            )).await()
-            itemsRepository.refresh()
-        }
-    }
-
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
@@ -43,9 +33,25 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         coroutineScope.launch {
-            itemsRepository.refresh()
+            try {
+                itemsRepository.refresh()
+            } catch (t: Throwable) {
+                _status.value = ApiStatus.OFFLINE
+            }
         }
     }
 
     val items = itemsRepository.itemOrders
+
+    fun order(item: Item, amount: String) {
+        coroutineScope.launch {
+            RetrofitClient.instance.postOrderItemAsync(
+                OrderItem(
+                    item.id,
+                    item.amount + amount.toInt()
+                )
+            ).await()
+            itemsRepository.refresh()
+        }
+    }
 }

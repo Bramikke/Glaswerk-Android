@@ -20,6 +20,10 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+        get() = _status
+
     private val _navigateToDetail = MutableLiveData<Item>()
     val navigateToDetail: LiveData<Item>
         get() = _navigateToDetail
@@ -32,8 +36,12 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         coroutineScope.launch {
-            itemsRepository.fullRefresh()
-            roomRepository.refresh()
+            try {
+                itemsRepository.fullRefresh()
+                roomRepository.refresh()
+            } catch (t:Throwable) {
+                _status.value = ApiStatus.OFFLINE
+            }
         }
     }
 

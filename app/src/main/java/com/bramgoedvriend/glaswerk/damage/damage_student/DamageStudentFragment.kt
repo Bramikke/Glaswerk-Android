@@ -27,11 +27,12 @@ import com.bramgoedvriend.glaswerk.domain.Student
 class DamageStudentFragment : Fragment() {
 
     private lateinit var binding: FragmentDamageStudentsBinding
-    private lateinit var damageStudentViewModel : DamageStudentViewModel
+    private lateinit var damageStudentViewModel: DamageStudentViewModel
     private lateinit var adapter: DamageStudentAdapter
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> sharedPrefChange()}
+    private val changeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> sharedPrefChange() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,28 +47,19 @@ class DamageStudentFragment : Fragment() {
         binding.itemName.text = args.item.itemName
 
         val viewModelFactory = DamageStudentViewModelFactory(application, args.item)
-        damageStudentViewModel = ViewModelProviders.of(this, viewModelFactory).get(DamageStudentViewModel::class.java)
+        damageStudentViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DamageStudentViewModel::class.java)
         adapter = DamageStudentAdapter(StudentListener { student -> showDialog(student) })
-        sharedPreferences =  application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
+        sharedPreferences = application.getSharedPreferences(
+            resources.getString(R.string.sharedPreferences),
+            AppCompatActivity.MODE_PRIVATE
+        )
 
         binding.studentList.adapter = adapter
 
         damageStudentViewModel.status.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    ApiStatus.LOADING -> {
-                        binding.studentList.visibility = View.INVISIBLE
-                        binding.loadingOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.ERROR -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.errorOverlay.visibility = View.VISIBLE
-                    }
-                    ApiStatus.DONE -> {
-                        binding.loadingOverlay.visibility = View.GONE
-                        binding.studentList.visibility = View.VISIBLE
-                    }
-                }
+            if (it == ApiStatus.OFFLINE) {
+                binding.offlineOverlay.visibility = View.VISIBLE
             }
         })
 
@@ -76,7 +68,7 @@ class DamageStudentFragment : Fragment() {
         binding.classLayout.setOnClickListener {
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.addToBackStack("KlassDialog")
-            val dialogFragment = BottomDialogFragment(Klas::class.java)
+            val dialogFragment = BottomDialogFragment(Klas::class.java, false)
             dialogFragment.show(fragmentTransaction, "dialog")
         }
 
@@ -87,7 +79,7 @@ class DamageStudentFragment : Fragment() {
         if (damageStudentViewModel.klas.hasObservers()) {
             damageStudentViewModel.klas.removeObservers(viewLifecycleOwner)
         }
-        if(damageStudentViewModel.students.hasObservers()) {
+        if (damageStudentViewModel.students.hasObservers()) {
             damageStudentViewModel.students.removeObservers(viewLifecycleOwner)
         }
 
@@ -111,7 +103,7 @@ class DamageStudentFragment : Fragment() {
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        dialog.findViewById<LinearLayout>(R.id.on_purpose_overlay).setOnClickListener{
+        dialog.findViewById<LinearLayout>(R.id.on_purpose_overlay).setOnClickListener {
             Toast.makeText(activity, "Geannuleerd", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

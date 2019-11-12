@@ -13,6 +13,7 @@ import com.bramgoedvriend.glaswerk.domain.ApiStatus
 import com.bramgoedvriend.glaswerk.domain.Klas
 import com.bramgoedvriend.glaswerk.domain.Lokaal
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
+import com.bramgoedvriend.glaswerk.network.RoomClassName
 import com.bramgoedvriend.glaswerk.repository.ClassRepository
 import com.bramgoedvriend.glaswerk.repository.ItemsRepository
 import com.bramgoedvriend.glaswerk.repository.Repository
@@ -47,17 +48,28 @@ class DialogViewModel<T> (
             repository = ClassRepository(database) as Repository<T>
         }
         coroutineScope.launch {
-            repository.refresh()
+            try {
+                repository.refresh()
+            } catch (t:Throwable) {}
         }
         items = repository.data
     }
 
     fun onItemClicked(item: Lokaal) {
-        Log.i("loglog","lokaalClick: "+item.roomId)
         sharedPreferences.edit().putInt("room", item.roomId).apply()
     }
 
     fun onItemClicked(item: Klas) {
         sharedPreferences.edit().putInt("class", item.classId).apply()
+    }
+
+    fun add(name: String) {
+        coroutineScope.launch {
+            if(type == Lokaal::class.java) {
+                RetrofitClient.instance.postAddRoom(RoomClassName(name)).await()
+            } else {
+                RetrofitClient.instance.postAddClass(RoomClassName(name)).await()
+            }
+        }
     }
 }

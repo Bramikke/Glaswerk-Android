@@ -25,10 +25,6 @@ interface GlaswerkAPIService {
     @GET("studentItem")
     fun getStudentItemAsync(): Deferred<NetworkStudentItemContainer>
 
-    @GET("studentByClassByItem")
-    fun getStudentsByClassByItemAsync(@Query("klasid") classid: Int,
-                                 @Query("itemid") itemid: Int): Deferred<List<Student>>
-
     @POST("studentItemBroken")
     fun postStudentItemBrokenAsync(@Body body : StudentItem): Deferred<Any>
 
@@ -47,4 +43,18 @@ interface GlaswerkAPIService {
     @POST("deleteItem")
     fun postRemoveItem(@Body body: ItemId): Deferred<Any>
 
+    @POST("addLeerling")
+    fun postAddStudent(@Body body: com.bramgoedvriend.glaswerk.network.Student): Deferred<Any>
+
+    @POST("editLeerling")
+    fun postEditStudent(@Body body: com.bramgoedvriend.glaswerk.network.Student): Deferred<Any>
+
+    @POST("deleteLeerling")
+    fun postRemoveStudent(@Body body: StudentId): Deferred<Any>
+
+    @POST("addLokaal")
+    fun postAddRoom(@Body body: RoomClassName): Deferred<Any>
+
+    @POST("addKlas")
+    fun postAddClass(@Body body: RoomClassName): Deferred<Any>
 }
