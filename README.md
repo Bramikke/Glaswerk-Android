@@ -1,6 +1,6 @@
 # Glaswerk Android applicatie
 
-Dit is mijn (**Bram Goedvriend**) Android applicatie.
+Dit is m"ijn (**Bram Goedvriend**) Android applicatie.
 
 ## Overview
 
@@ -20,9 +20,9 @@ git clone git@github.com:Bramikke/Glaswerk-Android.git
 
 ## Screenshots
 
-![Items broken screenshot](screenshots/shade.gif)
-![Orders screenshot](screenshots/orders.png)
-![Items and students screenshot](screenshots/itemsStudent.gif)
+<img src="screenshots/schade.gif" width="25%"/>
+<img src="screenshots/orders.png" width="25%"/>
+<img src="screenshots/itemsStudent.gif" width="25%"/>
 
 # Extra
 
