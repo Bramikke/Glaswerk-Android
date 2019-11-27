@@ -20,7 +20,9 @@ git clone git@github.com:Bramikke/Glaswerk-Android.git
 
 ## Screenshots
 
-
+![Items broken screenshot](screenshots/shade.gif)
+![Orders screenshot](screenshots/orders.png)
+![Items and students screenshot](screenshots/itemsStudent.gif)
 
 # Extra
 
