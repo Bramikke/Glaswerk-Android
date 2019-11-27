@@ -1,6 +1,6 @@
 # Glaswerk Android applicatie
 
-Dit is m"ijn (**Bram Goedvriend**) Android applicatie.
+Dit is mijn (**Bram Goedvriend**) Android applicatie.
 
 ## Overview
 
