@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListStudentBinding
-import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.data.StudentAndStudentItem
 
 class DamageStudentAdapter(val clickListener: StudentListener) :
-    ListAdapter<Student, DamageStudentAdapter.ViewHolder>(DamageDiffCallback()) {
+    ListAdapter<StudentAndStudentItem, DamageStudentAdapter.ViewHolder>(DamageStudentDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
     }
@@ -21,7 +21,7 @@ class DamageStudentAdapter(val clickListener: StudentListener) :
     class ViewHolder private constructor(val binding: ListStudentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            student: Student,
+            student: StudentAndStudentItem,
             clickListener: StudentListener
         ) {
             binding.student = student
@@ -39,16 +39,16 @@ class DamageStudentAdapter(val clickListener: StudentListener) :
     }
 }
 
-class DamageDiffCallback : DiffUtil.ItemCallback<Student>() {
-    override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
-        return oldItem.studentId == newItem.studentId
+class DamageStudentDiffCallback : DiffUtil.ItemCallback<StudentAndStudentItem>() {
+    override fun areItemsTheSame(oldItem: StudentAndStudentItem, newItem: StudentAndStudentItem): Boolean {
+        return oldItem.student.leerlingId == newItem.student.leerlingId
     }
 
-    override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {
+    override fun areContentsTheSame(oldItem: StudentAndStudentItem, newItem: StudentAndStudentItem): Boolean {
         return oldItem == newItem
     }
 }
 
-class StudentListener(val clickListener: (student: Student) -> Unit) {
-    fun onClick(student: Student) = clickListener(student)
+class StudentListener(val clickListener: (student: StudentAndStudentItem) -> Unit) {
+    fun onClick(student: StudentAndStudentItem) = clickListener(student)
 }

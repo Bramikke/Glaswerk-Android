@@ -7,7 +7,7 @@
 
         <variable
             name="student"
-            type="com.bramgoedvriend.glaswerk.domain.Student" />
+            type="com.bramgoedvriend.glaswerk.data.StudentAndStudentItem" />
 
 
         <variable

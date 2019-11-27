@@ -1,7 +1,9 @@
 package com.bramgoedvriend.glaswerk.network
 
-import com.bramgoedvriend.glaswerk.database.*
-import com.bramgoedvriend.glaswerk.domain.StudentItem
+import com.bramgoedvriend.glaswerk.data.*
+import com.bramgoedvriend.glaswerk.data.Item
+import com.bramgoedvriend.glaswerk.data.Student
+import com.bramgoedvriend.glaswerk.data.StudentItem
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -26,16 +28,16 @@ data class NetworkItem(
     val bestel_hoeveelheid: Int
 )
 
-fun NetworkItemsContainer.asDatabaseModel(): Array<DatabaseItem> {
+fun NetworkItemsContainer.asDatabaseModel(): Array<Item> {
     return items.map {
-        DatabaseItem (
-            itemid = it.itemid,
-            lokaal_id = it.lokaal_id,
+        Item (
+            id = it.itemid,
+            lokaalId = it.lokaal_id,
             naam = it.naam,
             aantal = it.aantal,
-            min_aantal = it.min_aantal,
-            max_aantal = it.max_aantal,
-            bestel_hoeveelheid = it.bestel_hoeveelheid
+            minAantal = it.min_aantal,
+            maxAantal = it.max_aantal,
+            bestelHoeveelheid = it.bestel_hoeveelheid
         )
     }.toTypedArray()
 }
@@ -48,13 +50,13 @@ data class NetworkStudent(
     val achternaam: String
 )
 
-fun NetworkStudentContainer.asDatabaseModel(): Array<DatabaseStudent> {
+fun NetworkStudentContainer.asDatabaseModel(): Array<com.bramgoedvriend.glaswerk.data.Student> {
     return students.map {
-        DatabaseStudent (
-            studentId = it.leerlingid,
-            classId = it.klasid,
-            firstName = it.voornaam,
-            lastName = it.achternaam
+        com.bramgoedvriend.glaswerk.data.Student (
+            leerlingId = it.leerlingid,
+            klasId = it.klasid,
+            voornaam = it.voornaam,
+            achternaam = it.achternaam
         )
     }.toTypedArray()
 }
@@ -65,11 +67,11 @@ data class NetworkRoom(
     val naam: String
 )
 
-fun NetworkRoomContainer.asDatabaseModel(): Array<DatabaseRoom> {
+fun NetworkRoomContainer.asDatabaseModel(): Array<Lokaal> {
     return rooms.map {
-        DatabaseRoom (
-            roomId = it.lokaalid,
-            name = it.naam
+        Lokaal (
+            lokaalId = it.lokaalid,
+            lokaalNaam = it.naam
         )
     }.toTypedArray()
 }
@@ -80,11 +82,11 @@ data class NetworkClass (
     val naam: String
 )
 
-fun NetworkClassContainer.asDatabaseModel(): Array<DatabaseClass> {
+fun NetworkClassContainer.asDatabaseModel(): Array<Klas> {
     return classes.map {
-        DatabaseClass (
-            classId = it.klasid,
-            name = it.naam
+        Klas (
+            klasId = it.klasid,
+            naam = it.naam
         )
     }.toTypedArray()
 }
@@ -97,13 +99,13 @@ data class NetworkStudentItem (
     val opzettelijk: Int
 )
 
-fun NetworkStudentItemContainer.asDatabaseModel(): Array<DatabaseStudentItem> {
+fun NetworkStudentItemContainer.asDatabaseModel(): Array<StudentItem> {
     return studentitems.map {
-        DatabaseStudentItem (
+        StudentItem (
             studentItemId = it.leerlingitemid,
             studentId = it.leerlingid,
             itemId = it.itemid,
-            onPurpose = it.opzettelijk
+            opzettelijk = it.opzettelijk
         )
     }.toTypedArray()
 }

@@ -6,7 +6,11 @@
     <data>
         <variable
             name="item"
-            type="com.bramgoedvriend.glaswerk.domain.Item" />
+            type="com.bramgoedvriend.glaswerk.data.Item" />
+
+        <variable
+            name="lokaalNaam"
+            type="String" />
 
         <variable
             name="clickListener"
@@ -101,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:textSize="18sp"
-                    app:itemLokaalString="@{item}"
+                    android:text="@{lokaalNaam}"
                     app:layout_constraintStart_toEndOf="@+id/txtLokaal"
                     app:layout_constraintTop_toTopOf="@+id/txtLokaal"
                     tools:text="1.012" />

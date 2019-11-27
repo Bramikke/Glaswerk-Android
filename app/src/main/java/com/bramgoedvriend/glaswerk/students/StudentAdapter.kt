@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.damage.damage_student.StudentListener
 import com.bramgoedvriend.glaswerk.databinding.ListStudentBinding
-import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.data.Student
+import com.bramgoedvriend.glaswerk.data.StudentAndStudentItem
 
-class StudentAdapter(val clickListener: StudentListener) : ListAdapter<Student, StudentAdapter.ViewHolder>(StudentDiffCallback()) {
+class StudentAdapter(val clickListener: StudentListener) : ListAdapter<StudentAndStudentItem, StudentAdapter.ViewHolder>(StudentDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
     }
@@ -20,7 +21,7 @@ class StudentAdapter(val clickListener: StudentListener) : ListAdapter<Student, 
 
     class ViewHolder private constructor(val binding: ListStudentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(student: Student, clickListener: StudentListener) {
+        fun bind(student: StudentAndStudentItem, clickListener: StudentListener) {
             binding.student = student
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -36,12 +37,12 @@ class StudentAdapter(val clickListener: StudentListener) : ListAdapter<Student, 
     }
 }
 
-class StudentDiffCallback : DiffUtil.ItemCallback<Student>() {
-    override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
-        return oldItem.studentId == newItem.studentId
+class StudentDiffCallback : DiffUtil.ItemCallback<StudentAndStudentItem>() {
+    override fun areItemsTheSame(oldItem: StudentAndStudentItem, newItem: StudentAndStudentItem): Boolean {
+        return oldItem.student.leerlingId == newItem.student.leerlingId
     }
 
-    override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {
+    override fun areContentsTheSame(oldItem: StudentAndStudentItem, newItem: StudentAndStudentItem): Boolean {
         return oldItem == newItem
     }
 }

@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
 import com.bramgoedvriend.glaswerk.databinding.ListItemOrdersBinding
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.generated.callback.OnClickListener
+import com.bramgoedvriend.glaswerk.data.Item
+import com.bramgoedvriend.glaswerk.data.ItemAndLokaal
 
-class OrderAdapter(val clickListener: OrderListener) : ListAdapter<Item, OrderAdapter.ViewHolder>(OrderDiffCallback()) {
+class OrderAdapter(val clickListener: OrderListener) : ListAdapter<ItemAndLokaal, OrderAdapter.ViewHolder>(OrderDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
     }
@@ -21,8 +20,9 @@ class OrderAdapter(val clickListener: OrderListener) : ListAdapter<Item, OrderAd
 
     class ViewHolder private constructor(val binding: ListItemOrdersBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Item, clickListener: OrderListener) {
-            binding.item = item
+        fun bind(item: ItemAndLokaal, clickListener: OrderListener) {
+            binding.item = item.item
+            binding.lokaalNaam = item.lokaalNaam
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -40,12 +40,12 @@ class OrderAdapter(val clickListener: OrderListener) : ListAdapter<Item, OrderAd
     }
 }
 
-class OrderDiffCallback : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.id == newItem.id
+class OrderDiffCallback : DiffUtil.ItemCallback<ItemAndLokaal>() {
+    override fun areItemsTheSame(oldItem: ItemAndLokaal, newItem: ItemAndLokaal): Boolean {
+        return oldItem.item.id == newItem.item.id
     }
 
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+    override fun areContentsTheSame(oldItem: ItemAndLokaal, newItem: ItemAndLokaal): Boolean {
         return oldItem == newItem
     }
 

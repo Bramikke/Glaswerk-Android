@@ -1,12 +1,6 @@
 package com.bramgoedvriend.glaswerk.network
 
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
-import com.bramgoedvriend.glaswerk.domain.Student
-import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
-import org.json.JSONObject
 import retrofit2.http.*
 
 interface GlaswerkAPIService {

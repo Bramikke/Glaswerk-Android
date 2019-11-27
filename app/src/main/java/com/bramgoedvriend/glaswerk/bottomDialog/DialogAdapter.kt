@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListClassCardBinding
 import com.bramgoedvriend.glaswerk.databinding.ListRoomCardBinding
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Lokaal
 
 class RoomAdapter (val clickListener: ItemListener<Lokaal>): ListAdapter<Lokaal, RoomAdapter.ViewHolder>(DiffCallback <Lokaal>()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -69,10 +69,10 @@ class ClassAdapter (val clickListener: ItemListener<Klas>): ListAdapter<Klas, Cl
 class DiffCallback <T> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
         if(oldItem is Lokaal && newItem is Lokaal) {
-            return oldItem.roomId == newItem.roomId
+            return oldItem.lokaalId == newItem.lokaalId
         }
         else if(oldItem is Klas && newItem is Klas) {
-            return oldItem.classId == newItem.classId
+            return oldItem.klasId == newItem.klasId
         }
         return oldItem == newItem
     }

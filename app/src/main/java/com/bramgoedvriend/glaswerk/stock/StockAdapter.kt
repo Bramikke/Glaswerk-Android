@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.damage.ItemListener
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
-import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.data.Item
 
 class StockAdapter(val clickListener: ItemListener): ListAdapter<Item, StockAdapter.ViewHolder>(StockDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

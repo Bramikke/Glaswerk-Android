@@ -1,42 +1,49 @@
 package com.bramgoedvriend.glaswerk.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.bramgoedvriend.glaswerk.database.Database
-import com.bramgoedvriend.glaswerk.database.asDomainModel
-import com.bramgoedvriend.glaswerk.database.asDomainModelItemRoom
-import com.bramgoedvriend.glaswerk.domain.Item
+import androidx.room.Transaction
+import com.bramgoedvriend.glaswerk.data.AppDatabase
+import com.bramgoedvriend.glaswerk.data.Item
+import com.bramgoedvriend.glaswerk.data.ItemAndLokaal
+import com.bramgoedvriend.glaswerk.data.ItemDao
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import com.bramgoedvriend.glaswerk.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ItemsRepository(private val database: Database):Repository<Item> {
+class ItemsRepository private constructor(private val itemDao: ItemDao):Repository<Item> {
 
-    override val data: LiveData<List<Item>> = Transformations.map(database.itemDao.getItems()) {
-        it.asDomainModel()
-    }
+    override val data: LiveData<List<Item>> = itemDao.getItems()
 
-    fun itemsByRoom(roomid: Int):LiveData<List<Item>> = Transformations.map(database.itemDao.getItemsByRoom(roomid)) {
-        it.asDomainModel()
-    }
+    val itemOrders: LiveData<List<ItemAndLokaal>> = itemDao.getItemOrders()
 
-    val itemOrders: LiveData<List<Item>> = Transformations.map(database.itemDao.getItemOrders()) {
-        it.asDomainModelItemRoom()
-    }
+    fun itemsByRoom(roomid: Int):LiveData<List<Item>> = itemDao.getItemsByRoom(roomid)
+
 
     override suspend fun refresh() {
         withContext(Dispatchers.IO) {
             val items = RetrofitClient.instance.getItemsAsync().await()
-            database.itemDao.insertAll(*items.asDatabaseModel())
+            itemDao.insertAll(*items.asDatabaseModel())
         }
     }
 
+    @Transaction //TODO add more transactions
     suspend fun fullRefresh() {
         withContext(Dispatchers.IO) {
             val items = RetrofitClient.instance.getItemsAsync().await()
-            database.itemDao.dropItems()
-            database.itemDao.insertAll(*items.asDatabaseModel())
+            itemDao.dropItems()
+            itemDao.insertAll(*items.asDatabaseModel())
         }
+    }
+
+    companion object {
+        @Volatile private var instance: ItemsRepository? = null
+
+        fun getInstance(itemDao: ItemDao) =
+            instance ?: synchronized(this) {
+                instance ?: ItemsRepository(itemDao).also { instance = it }
+            }
     }
 }

@@ -15,12 +15,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentOrdersBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.data.Item
 import android.text.InputType
 import android.widget.EditText
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.bramgoedvriend.glaswerk.data.ItemAndLokaal
 
 
 class OrdersFragment : Fragment() {
@@ -69,7 +70,7 @@ class OrdersFragment : Fragment() {
         val builder = AlertDialog.Builder(context!!)
         builder.setTitle(R.string.order_amount)
         val input = EditText(context!!)
-        input.setText((((item.maxAmount - item.amount) / item.orderAmount) * item.orderAmount).toString())
+        input.setText((((item.maxAantal - item.aantal) / item.bestelHoeveelheid) * item.bestelHoeveelheid).toString())
         input.inputType = InputType.TYPE_CLASS_NUMBER
         input.onFocusChangeListener = OnFocusChangeListener { _,_ ->
             input.post {
@@ -81,7 +82,7 @@ class OrdersFragment : Fragment() {
         builder.setView(input)
         builder.setPositiveButton("OK") { _, _ ->
             orderViewModel.order(item, input.text.toString())
-            Toast.makeText(context!!, input.text.toString() + " " + item.name + " zijn besteld.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context!!, input.text.toString() + " " + item.naam + " zijn besteld.", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("Annuleer") { dialog, _ -> dialog.cancel() }
         builder.show()

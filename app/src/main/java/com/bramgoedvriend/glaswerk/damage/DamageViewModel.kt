@@ -1,19 +1,16 @@
 package com.bramgoedvriend.glaswerk.damage
 
 import android.app.Application
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bramgoedvriend.glaswerk.database.getDatabase
+import com.bramgoedvriend.glaswerk.data.AppDatabase
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.data.Item
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Lokaal
 import com.bramgoedvriend.glaswerk.network.DamageItemNavigate
-import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import com.bramgoedvriend.glaswerk.repository.ClassRepository
 import com.bramgoedvriend.glaswerk.repository.ItemsRepository
 import com.bramgoedvriend.glaswerk.repository.RoomRepository
@@ -34,10 +31,10 @@ class DamageViewModel(application: Application) : AndroidViewModel(application) 
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val database = getDatabase(application)
-    private val itemsRepository = ItemsRepository(database)
-    private val roomRepository = RoomRepository(database)
-    private val classRepository = ClassRepository(database)
+    private val database = AppDatabase.getInstance(application)
+    private val itemsRepository = ItemsRepository.getInstance(database.itemDao)
+    private val roomRepository = RoomRepository.getInstance(database.lokaalDao)
+    private val classRepository = ClassRepository.getInstance(database.klasDao)
 
     private val prefs =  application.getSharedPreferences("ClassRoom", AppCompatActivity.MODE_PRIVATE)
 
@@ -78,8 +75,8 @@ class DamageViewModel(application: Application) : AndroidViewModel(application) 
     fun onItemClicked(item: Item) {
         _navigateToLeerlingen.value = DamageItemNavigate(
             item.id,
-            item.name,
-            item.amount
+            item.naam,
+            item.aantal
         )
     }
 

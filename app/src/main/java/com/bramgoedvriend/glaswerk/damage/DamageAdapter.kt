@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bramgoedvriend.glaswerk.databinding.ListItemBinding
-import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.data.Item
 
 class DamageAdapter(val clickListener: ItemListener) :
     ListAdapter<Item, DamageAdapter.ViewHolder>(DamageDiffCallback()) {

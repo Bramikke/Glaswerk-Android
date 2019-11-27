@@ -3,7 +3,6 @@ package com.bramgoedvriend.glaswerk.damage
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,8 @@ import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.FragmentDamageBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
 import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
-import com.bramgoedvriend.glaswerk.network.DamageItemNavigate
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Lokaal
 
 
 class DamageFragment : Fragment() {
@@ -92,7 +90,7 @@ class DamageFragment : Fragment() {
 
         damageViewModel.lokaal.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.lokaalName.text = it.name
+                binding.lokaalName.text = it.lokaalNaam
             }
         })
 
@@ -111,7 +109,7 @@ class DamageFragment : Fragment() {
 
         damageViewModel.klas.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.klasName.text = it.name
+                binding.klasName.text = it.naam
             }
         })
     }

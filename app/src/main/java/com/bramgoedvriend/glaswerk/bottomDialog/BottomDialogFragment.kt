@@ -1,10 +1,8 @@
 package com.bramgoedvriend.glaswerk.bottomDialog
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -21,8 +18,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.databinding.PopupBottomBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Lokaal
 
 @Suppress("UNCHECKED_CAST")
 class BottomDialogFragment <T> (val type: Class<T>, val add: Boolean) : DialogFragment() {

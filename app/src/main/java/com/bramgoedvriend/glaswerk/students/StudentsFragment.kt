@@ -14,14 +14,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
-import com.bramgoedvriend.glaswerk.bottomDialog.ItemListener
 import com.bramgoedvriend.glaswerk.damage.damage_student.StudentListener
 import com.bramgoedvriend.glaswerk.databinding.FragmentStudentsBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Klas
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Student
+import com.bramgoedvriend.glaswerk.data.StudentAndStudentItem
 import com.bramgoedvriend.glaswerk.network.StudentNavigate
 import com.bramgoedvriend.glaswerk.orders.*
 
@@ -48,13 +48,13 @@ class StudentsFragment : Fragment() {
         studentViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(StudentViewModel::class.java)
 
-        adapter = StudentAdapter(StudentListener { student -> studentViewModel.onStudentClicked(student)})
+        adapter = StudentAdapter(StudentListener { student -> studentViewModel.onStudentClicked(student.student)})
         binding.studentList.adapter = adapter
 
         studentViewModel.navigateToDetail.observe(viewLifecycleOwner, Observer { student ->
             student?.let{
                 findNavController().navigate(StudentsFragmentDirections.actionStudentsFragmentToStudentDetailFragment(
-                    StudentNavigate(it.studentId,it.classId,it.firstName,it.lastName)
+                    StudentNavigate(it.leerlingId,it.klasId,it.voornaam,it.achternaam)
                 ))
                 studentViewModel.onDetailNavigated()
             }
@@ -98,7 +98,7 @@ class StudentsFragment : Fragment() {
             studentViewModel.students.removeObservers(viewLifecycleOwner)
         }
         studentViewModel.klas.observe(viewLifecycleOwner, Observer {
-            binding.className.text = it.name
+            binding.className.text = it.naam
         })
         studentViewModel.students.observe(viewLifecycleOwner, Observer {
             it?.let {

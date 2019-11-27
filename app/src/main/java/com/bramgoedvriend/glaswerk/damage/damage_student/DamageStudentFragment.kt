@@ -4,6 +4,7 @@ package com.bramgoedvriend.glaswerk.damage.damage_student
 import android.app.Dialog
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,9 @@ import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
 import com.bramgoedvriend.glaswerk.databinding.FragmentDamageStudentsBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.data.Klas
+import com.bramgoedvriend.glaswerk.data.Student
+import com.bramgoedvriend.glaswerk.data.StudentAndStudentItem
 
 
 class DamageStudentFragment : Fragment() {
@@ -85,18 +87,18 @@ class DamageStudentFragment : Fragment() {
 
         damageStudentViewModel.klas.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.className.text = it.name
+                binding.className.text = it.naam
             }
         })
 
         damageStudentViewModel.students.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.submitList(damageStudentViewModel.filter(it))
             }
         })
     }
 
-    private fun showDialog(student: Student) {
+    private fun showDialog(student: StudentAndStudentItem) {
         val dialog = Dialog(context!!)
         dialog.setContentView(R.layout.popup_on_purpose)
         val window = dialog.window

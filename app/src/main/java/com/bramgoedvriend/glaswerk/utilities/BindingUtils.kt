@@ -1,86 +1,76 @@
-package com.bramgoedvriend.glaswerk.util
+package com.bramgoedvriend.glaswerk.utilities
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.domain.Klas
-import com.bramgoedvriend.glaswerk.domain.Lokaal
-import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.data.*
 
 @BindingAdapter("itemNameString")
 fun TextView.setItemNameString(item: Item?) {
     item?.let {
-        text = item.name
+        text = item.naam
     }
 }
 
 @BindingAdapter("itemAantalString")
 fun TextView.setItemAantalString(item: Item?) {
     item?.let {
-        text = item.amount.toString()
+        text = item.aantal.toString()
     }
 }
 
 @BindingAdapter("itemAmountString")
 fun TextView.setItemAmountString(item: Item?) {
     item?.let {
-        text = item.amount.toString()
+        text = item.aantal.toString()
     }
 }
 
 @BindingAdapter("itemMinString")
 fun TextView.setItemMinString(item: Item?) {
     item?.let {
-        text = item.minAmount.toString()
+        text = item.minAantal.toString()
     }
 }
 
 @BindingAdapter("itemMaxString")
 fun TextView.setItemMaxString(item: Item?) {
     item?.let {
-        text = item.maxAmount.toString()
+        text = item.maxAantal.toString()
     }
 }
 
 @BindingAdapter("itemOrderString")
 fun TextView.setItemOrderString(item: Item?) {
     item?.let {
-        val aantalBestellen = (item.maxAmount - item.amount) / item.orderAmount
-        text = String.format("%d x %d", aantalBestellen, item.orderAmount)
-    }
-}
-
-@BindingAdapter("itemLokaalString")
-fun TextView.setItemLokaalString(item: Item?) {
-    item?.let {
-        text = item.roomName
+        val aantalBestellen = (item.maxAantal - item.aantal) / item.bestelHoeveelheid
+        text = String.format("%d x %d", aantalBestellen, item.bestelHoeveelheid)
     }
 }
 
 @BindingAdapter("studentNameString")
-fun TextView.setStudentNameString(student: Student?) {
+fun TextView.setStudentNameString(student: StudentAndStudentItem?) {
     student?.let {
-        text = String.format("%s %s", student.firstName, student.lastName)
+        text = String.format("%s %s", student.student.voornaam, student.student.achternaam)
     }
 }
 
 @BindingAdapter("studentNumberBrokenString")
-fun TextView.setStudentNumberBrokenString(student: Student?) {
+fun TextView.setStudentNumberBrokenString(student: StudentAndStudentItem?) {
     student?.let {
-        text = student.brokenAmount.toString()
+        text = student.studentItems.count().toString()
     }
 }
 
 @BindingAdapter("roomNameString")
 fun TextView.setRoomNameString(room: Lokaal?) {
     room?.let {
-        text = room.name
+        text = room.lokaalNaam
     }
 }
 
 @BindingAdapter("classNameString")
 fun TextView.setClassNameString(klas: Klas?) {
     klas?.let {
-        text = klas.name
+        text = klas.naam
     }
 }

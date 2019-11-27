@@ -1,20 +1,15 @@
 package com.bramgoedvriend.glaswerk.orders
 
 import android.app.Application
-import android.text.Editable
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bramgoedvriend.glaswerk.database.getDatabase
+import com.bramgoedvriend.glaswerk.data.AppDatabase
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Item
-import com.bramgoedvriend.glaswerk.network.GlaswerkAPIService
+import com.bramgoedvriend.glaswerk.data.Item
 import com.bramgoedvriend.glaswerk.network.OrderItem
 import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import com.bramgoedvriend.glaswerk.repository.ItemsRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,8 +23,8 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val database = getDatabase(application)
-    private val itemsRepository = ItemsRepository(database)
+    private val database = AppDatabase.getInstance(application)
+    private val itemsRepository = ItemsRepository.getInstance(database.itemDao)
 
     init {
         coroutineScope.launch {
@@ -48,7 +43,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             RetrofitClient.instance.postOrderItemAsync(
                 OrderItem(
                     item.id,
-                    item.amount + amount.toInt()
+                    item.aantal + amount.toInt()
                 )
             ).await()
             itemsRepository.refresh()

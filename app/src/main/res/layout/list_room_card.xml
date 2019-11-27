@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.bramgoedvriend.glaswerk.domain.Lokaal" />
+            type="com.bramgoedvriend.glaswerk.data.Lokaal" />
 
         <variable
             name="clickListener"

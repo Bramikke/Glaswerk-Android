@@ -5,14 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bramgoedvriend.glaswerk.database.getDatabase
+import com.bramgoedvriend.glaswerk.data.AppDatabase
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Student
-import com.bramgoedvriend.glaswerk.network.RetrofitClient
+import com.bramgoedvriend.glaswerk.data.Student
 import com.bramgoedvriend.glaswerk.repository.ClassRepository
 import com.bramgoedvriend.glaswerk.repository.StudentRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,9 +27,9 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
     val navigateToDetail: LiveData<Student>
         get() = _navigateToDetail
 
-    private val database = getDatabase(application)
-    private val studentsRepository = StudentRepository(database)
-    private val classRepository = ClassRepository(database)
+    private val database = AppDatabase.getInstance(application)
+    private val studentsRepository = StudentRepository.getInstance(database.studentDao)
+    private val classRepository = ClassRepository.getInstance(database.klasDao)
 
     private val prefs =  application.getSharedPreferences("ClassRoom", AppCompatActivity.MODE_PRIVATE)
 

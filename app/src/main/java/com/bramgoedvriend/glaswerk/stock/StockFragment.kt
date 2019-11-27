@@ -13,13 +13,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.bramgoedvriend.glaswerk.MainActivity
 import com.bramgoedvriend.glaswerk.R
 import com.bramgoedvriend.glaswerk.bottomDialog.BottomDialogFragment
 import com.bramgoedvriend.glaswerk.damage.ItemListener
 import com.bramgoedvriend.glaswerk.databinding.FragmentStockBinding
 import com.bramgoedvriend.glaswerk.domain.ApiStatus
-import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.data.Lokaal
 import com.bramgoedvriend.glaswerk.network.ItemNavigate
 
 class StockFragment : Fragment() {
@@ -51,12 +50,12 @@ class StockFragment : Fragment() {
                 findNavController().navigate(StockFragmentDirections.actionStockFragmentToStockDetailFragment(
                     ItemNavigate(
                         id = it.id,
-                        roomId = it.roomId,
-                        name = it.name,
-                        amount = it.amount,
-                        minAmount = it.minAmount,
-                        maxAmount = it.maxAmount,
-                        orderAmount = it.orderAmount
+                        roomId = it.lokaalId,
+                        name = it.naam,
+                        amount = it.aantal,
+                        minAmount = it.minAantal,
+                        maxAmount = it.maxAantal,
+                        orderAmount = it.bestelHoeveelheid
                     )
                 ))
                 stockViewModel.onDetailNavigated()
@@ -101,7 +100,7 @@ class StockFragment : Fragment() {
             stockViewModel.items.removeObservers(viewLifecycleOwner)
         }
         stockViewModel.lokaal.observe(viewLifecycleOwner, Observer {
-            binding.roomName.text = it.name
+            binding.roomName.text = it.lokaalNaam
         })
         stockViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
