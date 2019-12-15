@@ -1,6 +1,11 @@
 package com.bramgoedvriend.glaswerk.utils
 
-import com.bramgoedvriend.glaswerk.domain.*
+import com.bramgoedvriend.glaswerk.domain.Item
+import com.bramgoedvriend.glaswerk.domain.Klas
+import com.bramgoedvriend.glaswerk.domain.Lokaal
+import com.bramgoedvriend.glaswerk.domain.Student
+import com.bramgoedvriend.glaswerk.domain.StudentAndStudentItem
+import com.bramgoedvriend.glaswerk.domain.StudentItem
 
 val item1 = Item(
     1,
@@ -50,21 +55,21 @@ val lokaal1 = Lokaal(1, "1.001")
 
 val lokaal2 = Lokaal(2, "1.002")
 
-val student1 = Student(1,1,"Jos", "Peeters")
+val student1 = Student(1, 1, "Jos", "Peeters")
 
-val student2 = Student(2,1,"Bert", "Vermeulen")
+val student2 = Student(2, 1, "Bert", "Vermeulen")
 
-val student3 = Student(3,2,"Jan", "Jansens")
+val student3 = Student(3, 2, "Jan", "Jansens")
 
-val student4 = Student(4,2,"Bob", "De Maes")
+val student4 = Student(4, 2, "Bob", "De Maes")
 
-val studentItem1 = StudentItem(1,1,1,1)
+val studentItem1 = StudentItem(1, 1, 1, 1)
 
-val studentItem2 = StudentItem(2,1,2,1)
+val studentItem2 = StudentItem(2, 1, 2, 1)
 
-val studentItem3 = StudentItem(3,2,2,0)
+val studentItem3 = StudentItem(3, 2, 2, 0)
 
-val studentItem4 = StudentItem(4,2,3,0)
+val studentItem4 = StudentItem(4, 2, 3, 0)
 
 val studentAndItem1 = StudentAndStudentItem(student1, arrayListOf(studentItem1, studentItem2))
 

@@ -54,7 +54,7 @@ class StockDetailFragment : Fragment() {
 
         sharedPreferences = application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
 
-        if(stockDetailViewModel.offline){
+        if (stockDetailViewModel.offline) {
             binding.saveButton.visibility = View.GONE
             binding.removeButton.visibility = View.GONE
             binding.nameText.isEnabled = false

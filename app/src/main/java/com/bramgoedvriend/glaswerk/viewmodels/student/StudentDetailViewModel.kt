@@ -3,7 +3,11 @@ package com.bramgoedvriend.glaswerk.viewmodels.student
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
-import com.bramgoedvriend.glaswerk.network.*
+import com.bramgoedvriend.glaswerk.network.GlaswerkConnectivityManager
+import com.bramgoedvriend.glaswerk.network.RetrofitClient
+import com.bramgoedvriend.glaswerk.network.Student
+import com.bramgoedvriend.glaswerk.network.StudentId
+import com.bramgoedvriend.glaswerk.network.StudentNavigate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

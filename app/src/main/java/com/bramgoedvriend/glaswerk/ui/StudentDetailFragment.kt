@@ -52,7 +52,7 @@ class StudentDetailFragment : Fragment() {
 
         sharedPreferences = application.getSharedPreferences(resources.getString(R.string.sharedPreferences), AppCompatActivity.MODE_PRIVATE)
 
-        if(studentDetailViewModel.offline){
+        if (studentDetailViewModel.offline) {
             binding.saveButton.visibility = View.GONE
             binding.removeButton.visibility = View.GONE
             binding.firstnameText.isEnabled = false

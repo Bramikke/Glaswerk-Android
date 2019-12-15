@@ -119,7 +119,7 @@ class DamageStudentFragment : Fragment() {
     }
 
     private fun showDialog(student: StudentAndStudentItem) {
-        if(!offline) {
+        if (!offline) {
         val dialog = Dialog(context!!)
         dialog.setContentView(R.layout.popup_on_purpose)
         val window = dialog.window

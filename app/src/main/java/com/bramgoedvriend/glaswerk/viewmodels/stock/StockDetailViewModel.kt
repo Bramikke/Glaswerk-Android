@@ -3,7 +3,11 @@ package com.bramgoedvriend.glaswerk.viewmodels.stock
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
-import com.bramgoedvriend.glaswerk.network.*
+import com.bramgoedvriend.glaswerk.network.GlaswerkConnectivityManager
+import com.bramgoedvriend.glaswerk.network.Item
+import com.bramgoedvriend.glaswerk.network.ItemId
+import com.bramgoedvriend.glaswerk.network.ItemNavigate
+import com.bramgoedvriend.glaswerk.network.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
