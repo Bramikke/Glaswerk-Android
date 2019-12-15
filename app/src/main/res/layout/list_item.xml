@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="com.bramgoedvriend.glaswerk.data.Item" />
+            type="com.bramgoedvriend.glaswerk.domain.Item" />
 
         <variable
             name="clickListener"
-            type="com.bramgoedvriend.glaswerk.damage.ItemListener" />
+            type="com.bramgoedvriend.glaswerk.adapters.ItemListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

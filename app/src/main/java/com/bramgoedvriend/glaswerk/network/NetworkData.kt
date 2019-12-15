@@ -5,38 +5,38 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StudentItem(
-    val leerlingid: Int ,
+    val leerlingid: Int,
     val itemid: Int,
     val opzettelijk: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
-data class ItemId (
+data class ItemId(
     val itemid: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
-data class StudentId (
+data class StudentId(
     val leerlingid: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class RoomClassName(
     val naam: String
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class OrderItem(
     val itemid: Int,
     val aantal: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class DamageItemNavigate(
     val itemid: Int,
     val itemName: String,
     val itemAmount: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class ItemNavigate(
@@ -47,7 +47,7 @@ data class ItemNavigate(
     val minAmount: Int,
     val maxAmount: Int,
     val orderAmount: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class StudentNavigate(
@@ -55,7 +55,7 @@ data class StudentNavigate(
     val classId: Int,
     val firstName: String,
     val lastName: String
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class Item(
@@ -66,7 +66,7 @@ data class Item(
     val min_aantal: Int,
     val max_aantal: Int,
     val bestel_hoeveelheid: Int
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class Student(
@@ -74,4 +74,4 @@ data class Student(
     val klasid: Int,
     val voornaam: String,
     val achternaam: String
-):Parcelable
+) : Parcelable

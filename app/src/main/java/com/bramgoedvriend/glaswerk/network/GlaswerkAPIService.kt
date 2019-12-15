@@ -1,7 +1,14 @@
 package com.bramgoedvriend.glaswerk.network
 
+import com.bramgoedvriend.glaswerk.network.DTO.NetworkClassContainer
+import com.bramgoedvriend.glaswerk.network.DTO.NetworkItemsContainer
+import com.bramgoedvriend.glaswerk.network.DTO.NetworkRoomContainer
+import com.bramgoedvriend.glaswerk.network.DTO.NetworkStudentContainer
+import com.bramgoedvriend.glaswerk.network.DTO.NetworkStudentItemContainer
 import kotlinx.coroutines.Deferred
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface GlaswerkAPIService {
     @GET("item")
@@ -20,7 +27,7 @@ interface GlaswerkAPIService {
     fun getStudentItemAsync(): Deferred<NetworkStudentItemContainer>
 
     @POST("studentItemBroken")
-    fun postStudentItemBrokenAsync(@Body body : StudentItem): Deferred<Any>
+    fun postStudentItemBrokenAsync(@Body body: StudentItem): Deferred<Any>
 
     @POST("reduceItem")
     fun postReduceItemAsync(@Body body: ItemId): Deferred<Any>
@@ -29,19 +36,19 @@ interface GlaswerkAPIService {
     fun postOrderItemAsync(@Body body: OrderItem): Deferred<Any>
 
     @POST("addItem")
-    fun postAddItem(@Body body: com.bramgoedvriend.glaswerk.network.Item): Deferred<Any>
+    fun postAddItem(@Body body: Item): Deferred<Any>
 
     @POST("editItem")
-    fun postEditItem(@Body body: com.bramgoedvriend.glaswerk.network.Item): Deferred<Any>
+    fun postEditItem(@Body body: Item): Deferred<Any>
 
     @POST("deleteItem")
     fun postRemoveItem(@Body body: ItemId): Deferred<Any>
 
     @POST("addLeerling")
-    fun postAddStudent(@Body body: com.bramgoedvriend.glaswerk.network.Student): Deferred<Any>
+    fun postAddStudent(@Body body: Student): Deferred<Any>
 
     @POST("editLeerling")
-    fun postEditStudent(@Body body: com.bramgoedvriend.glaswerk.network.Student): Deferred<Any>
+    fun postEditStudent(@Body body: Student): Deferred<Any>
 
     @POST("deleteLeerling")
     fun postRemoveStudent(@Body body: StudentId): Deferred<Any>

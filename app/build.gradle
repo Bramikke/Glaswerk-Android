@@ -1,12 +1,8 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     dataBinding {
@@ -31,7 +27,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
     androidExtensions {
@@ -43,29 +39,47 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.core:core-ktx:1.1.0"
+    
+    //Databinding
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    kapt "com.android.databinding:compiler:$version_databinding"
+
+    //Material
+    implementation "com.google.android.material:material:$version_material"
+
+    //Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+
+    //Vector drawable
+    implementation "androidx.vectordrawable:vectordrawable:$version_vector_drawable"
+
+    //Navigation
     implementation "androidx.navigation:navigation-fragment:$version_navigation"
     implementation "androidx.navigation:navigation-ui:$version_navigation"
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$version_lifecycle"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
+
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
+
+    //Annotations
+    implementation "androidx.annotation:annotation:$version_annotation"
+
+    // Testing
     testImplementation "junit:junit:$version_junit"
-    kapt 'com.android.databinding:compiler:3.1.4'
     androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$version_espresso"
     androidTestImplementation "androidx.test:runner:$version_testrunner"
     androidTestImplementation "androidx.test:rules:$version_testrules"
     androidTestImplementation "androidx.test.ext:junit:$version_androidx_junit"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation "com.google.android.material:material:$version_material"
+    androidTestImplementation "androidx.arch.core:core-testing:$version_testing_core"
+    testImplementation "androidx.arch.core:core-testing:$version_testing_core"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$version_timber"
@@ -82,8 +96,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 
     // Room
     implementation "androidx.room:room-runtime:$version_room"

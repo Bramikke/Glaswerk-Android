@@ -97,7 +97,7 @@
                 android:id="@+id/student_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
 
@@ -105,5 +105,11 @@
             android:id="@+id/loading_overlay"
             layout="@layout/overlay_loading"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/error_overlay"
+            layout="@layout/overlay_error"
+            android:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/DamageFragment"
-        android:name="com.bramgoedvriend.glaswerk.damage.DamageFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.DamageFragment"
         android:label="@string/title_damage"
         tools:layout="@layout/fragment_damage">
         <action
@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/OrdersFragment"
-        android:name="com.bramgoedvriend.glaswerk.orders.OrdersFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.OrdersFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/StockFragment"
-        android:name="com.bramgoedvriend.glaswerk.stock.StockFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.StockFragment"
         android:label="@string/title_stock"
         tools:layout="@layout/fragment_stock" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/StudentsFragment"
-        android:name="com.bramgoedvriend.glaswerk.students.StudentsFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.StudentsFragment"
         android:label="@string/title_students"
         tools:layout="@layout/fragment_students" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/damageStudentFragment"
-        android:name="com.bramgoedvriend.glaswerk.damage.damage_student.DamageStudentFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.DamageStudentFragment"
         android:label="@string/title_select_student">
         <action
             android:id="@+id/action_damageStudentFragment_to_DamageFragment"
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/stockDetailFragment"
-        android:name="com.bramgoedvriend.glaswerk.stock.stockDetail.StockDetailFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.StockDetailFragment"
         android:label="Item">
         <action
             android:id="@+id/action_stockDetailFragment_to_StockFragment"
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentDetailFragment"
-        android:name="com.bramgoedvriend.glaswerk.students.studentDetail.StudentDetailFragment"
+        android:name="com.bramgoedvriend.glaswerk.ui.StudentDetailFragment"
         android:label="Student">
         <action
             android:id="@+id/action_studentDetailFragment_to_StudentsFragment"

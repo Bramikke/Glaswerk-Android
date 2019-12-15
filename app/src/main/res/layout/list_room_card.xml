@@ -6,11 +6,11 @@
     <data>
         <variable
             name="item"
-            type="com.bramgoedvriend.glaswerk.data.Lokaal" />
+            type="com.bramgoedvriend.glaswerk.domain.Lokaal" />
 
         <variable
             name="clickListener"
-            type="com.bramgoedvriend.glaswerk.bottomDialog.ItemListener" />
+            type="com.bramgoedvriend.glaswerk.adapters.ItemListenerGeneric" />
     </data>
 
     <androidx.cardview.widget.CardView

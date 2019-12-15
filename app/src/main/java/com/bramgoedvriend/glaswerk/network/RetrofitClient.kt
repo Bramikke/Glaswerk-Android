@@ -6,7 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
 object RetrofitClient {
 
     private const val BASE_URL = "http://bramlab.ga:4444/"
@@ -15,7 +14,7 @@ object RetrofitClient {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    val instance : GlaswerkAPIService by lazy {
+    val instance: GlaswerkAPIService by lazy {
         Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())

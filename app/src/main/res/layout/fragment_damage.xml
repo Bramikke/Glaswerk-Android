@@ -3,120 +3,125 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/lokaal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtLokaal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/Room"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/lokaal_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/txtLokaal"
-                        app:layout_constraintStart_toEndOf="@id/txtLokaal"
-                        app:layout_constraintTop_toTopOf="@id/txtLokaal"
-                        tools:text="2.012" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/klas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtKlas"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="@string/Class"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/klas_name"
-                        app:layout_constraintEnd_toStartOf="@+id/klas_name"
-                        app:layout_constraintTop_toTopOf="@+id/klas_name" />
-
-                    <TextView
-                        android:id="@+id/klas_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="5B" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <include
-            android:id="@+id/offline_overlay"
-            layout="@layout/overlay_offline"
-            android:visibility="gone" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-    </LinearLayout>
-    <include
-        android:id="@+id/loading_overlay"
-        layout="@layout/overlay_loading"
-        android:visibility="gone" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/lokaal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtLokaal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/Room"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lokaal_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtLokaal"
+                            app:layout_constraintStart_toEndOf="@id/txtLokaal"
+                            app:layout_constraintTop_toTopOf="@id/txtLokaal"
+                            tools:text="2.012" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/klas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtKlas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/Class"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/klas_name"
+                            app:layout_constraintEnd_toStartOf="@+id/klas_name"
+                            app:layout_constraintTop_toTopOf="@+id/klas_name" />
+
+                        <TextView
+                            android:id="@+id/klas_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="5B" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                android:id="@+id/offline_overlay"
+                layout="@layout/overlay_offline"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/item_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/loading_overlay"
+            layout="@layout/overlay_loading"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/error_overlay"
+            layout="@layout/overlay_error"
+            android:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

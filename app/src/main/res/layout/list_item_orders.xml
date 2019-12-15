@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.bramgoedvriend.glaswerk.data.Item" />
+            type="com.bramgoedvriend.glaswerk.domain.Item" />
 
         <variable
             name="lokaalNaam"
@@ -14,7 +14,7 @@
 
         <variable
             name="clickListener"
-            type="com.bramgoedvriend.glaswerk.orders.OrderListener" />
+            type="com.bramgoedvriend.glaswerk.adapters.OrderListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
