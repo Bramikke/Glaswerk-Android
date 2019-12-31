@@ -27,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/somethingWentWrong"
-            android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/error"
             app:layout_constraintStart_toStartOf="@+id/error"

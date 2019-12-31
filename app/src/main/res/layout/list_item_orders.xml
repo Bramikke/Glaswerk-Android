@@ -22,15 +22,8 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            style="@style/NormalCard"
             android:onClick="@{() -> clickListener.onClick(item)}"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +39,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:textColor="@android:color/black"
                     android:textSize="18sp"
                     app:itemNameString="@{item}"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +53,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="@string/amount"
                     android:textSize="18sp"
+                    android:textColor="@android:color/tab_indicator_text"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,6 +65,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="@string/minAmount"
                     android:textSize="18sp"
+                    android:textColor="@android:color/tab_indicator_text"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                     app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
 
@@ -84,6 +78,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="@string/order_amount"
                     android:textSize="18sp"
+                    android:textColor="@android:color/tab_indicator_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                     app:layout_constraintTop_toBottomOf="@+id/txtMaxAmount" />
@@ -96,6 +91,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="@string/Room"
                     android:textSize="18sp"
+                    android:textColor="@android:color/tab_indicator_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -125,7 +121,6 @@
                         android:id="@+id/item_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:itemAmountString="@{item}"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +132,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:itemMinString="@{item}"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +143,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:itemMaxString="@{item}"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +154,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:itemOrderString="@{item}"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,6 +170,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="@string/maxAmount"
                     android:textSize="18sp"
+                    android:textColor="@android:color/tab_indicator_text"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                     app:layout_constraintTop_toBottomOf="@+id/txtMinAmount" />
 
